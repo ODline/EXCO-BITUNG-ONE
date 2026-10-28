@@ -4,18 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#c91524">
   <title>EXCO BITUNG ONE</title>
-  <meta name="theme-color" content="#D32F2F">
 
   <style>
     :root {
-      --red: #D32F2F;
-      --red-dark: #B71C1C;
-      --black: #212121;
-      --gray: #F5F5F5;
-      --white: #FFFFFF;
-      --muted: #757575;
-      --border: #E0E0E0;
+      --red: #c91524;
+      --red-dark: #a80f1b;
+      --black: #202020;
+      --dark: #292929;
+      --white: #ffffff;
+      --bg: #f4f5f7;
+      --muted: #777d87;
+      --border: #e7e8ec;
+      --sidebar-width: 255px;
     }
 
     * {
@@ -26,7 +28,7 @@
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       color: var(--black);
-      background: var(--gray);
+      background: var(--bg);
     }
 
     button, input {
@@ -41,380 +43,861 @@
       display: none !important;
     }
 
+    /* LOGO PARTAI BURUH */
+    .party-logo {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+      background: white;
+      border-radius: 12px;
+      padding: 4px;
+    }
+
+    /* HALAMAN LOGIN */
     .login-page {
       min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      background: white;
+    }
+
+    .login-visual {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+      padding: 48px;
+      overflow: hidden;
+      color: white;
+      background:
+        radial-gradient(
+          circle at 85% 15%,
+          rgba(255,255,255,.13),
+          transparent 27%
+        ),
+        linear-gradient(145deg, #d91c2b, #a90e1b 70%, #750912);
+    }
+
+    .login-visual::before,
+    .login-visual::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .login-visual::before {
+      width: 470px;
+      height: 470px;
+      right: -170px;
+      bottom: -130px;
+    }
+
+    .login-visual::after {
+      width: 330px;
+      height: 330px;
+      right: -100px;
+      bottom: -60px;
+    }
+
+    .visual-brand,
+    .visual-copy,
+    .visual-footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    .visual-brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .visual-brand .party-logo {
+      width: 72px;
+      height: 72px;
+    }
+
+    .visual-brand h1 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.3;
+      letter-spacing: .5px;
+    }
+
+    .visual-brand p {
+      margin: 6px 0 0;
+      font-size: 12px;
+      color: rgba(255,255,255,.8);
+    }
+
+    .visual-copy {
+      max-width: 510px;
+      padding: 55px 0;
+    }
+
+    .visual-copy .eyebrow {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,.45);
+      padding: 8px 12px;
+      border-radius: 30px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .visual-copy h2 {
+      font-size: clamp(34px, 4vw, 54px);
+      line-height: 1.12;
+      margin: 24px 0 18px;
+      letter-spacing: -.8px;
+    }
+
+    .visual-copy h2 span {
+      color: #ffd9dc;
+    }
+
+    .visual-copy p {
+      max-width: 420px;
+      font-size: 15px;
+      line-height: 1.9;
+      color: rgba(255,255,255,.85);
+    }
+
+    .visual-footer {
+      font-size: 11px;
+      color: rgba(255,255,255,.75);
+    }
+
+    .login-side {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
-      background:
-        linear-gradient(135deg, rgba(20,20,20,.97), rgba(60,15,15,.94));
+      padding: 42px;
     }
 
     .login-card {
       width: 100%;
-      max-width: 420px;
-      padding: 34px;
-      background: white;
-      border-radius: 18px;
-      box-shadow: 0 18px 55px rgba(0,0,0,.3);
+      max-width: 390px;
     }
 
-    .brand-mark {
-      width: 66px;
-      height: 66px;
+    .mobile-logo {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .mobile-logo strong {
+      font-size: 17px;
+    }
+
+    .login-card .welcome-label {
+      margin: 0 0 12px;
+      color: var(--red);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .login-card h2 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: -.5px;
+    }
+
+    .login-description {
+      margin: 12px 0 30px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .form-field {
+      margin-bottom: 19px;
+    }
+
+    .form-field label {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .form-field input {
+      width: 100%;
+      height: 48px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0 13px;
+      outline: none;
+      background: #fafafa;
+      font-size: 13px;
+    }
+
+    .form-field input:focus {
+      border-color: var(--red);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(201,21,36,.08);
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .login-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin: 3px 0 22px;
+      font-size: 11px;
+    }
+
+    .remember-option {
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
-      border-radius: 18px;
-      background: var(--red);
-      color: white;
-      font-size: 25px;
-      font-weight: 800;
-    }
-
-    .brand-title {
-      text-align: center;
-      margin: 0;
-      font-size: 25px;
-      font-weight: 800;
-      letter-spacing: .5px;
-    }
-
-    .tagline {
-      text-align: center;
+      gap: 7px;
       color: var(--muted);
-      font-size: 12px;
-      margin: 10px 0 28px;
-      line-height: 1.5;
     }
 
-    .field {
-      margin-bottom: 16px;
+    .remember-option input {
+      accent-color: var(--red);
     }
 
-    .field label {
-      display: block;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 7px;
-    }
-
-    .field input {
-      width: 100%;
-      padding: 13px 14px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      outline: none;
-      background: #fff;
-    }
-
-    .field input:focus {
-      border-color: var(--red);
-      box-shadow: 0 0 0 3px rgba(211,47,47,.1);
-    }
-
-    .btn {
+    .text-button {
       border: 0;
-      border-radius: 9px;
-      padding: 13px 16px;
+      padding: 0;
+      color: var(--red);
+      background: transparent;
+      font-size: 11px;
       font-weight: 700;
-      transition: .2s;
     }
 
-    .btn-primary {
+    .primary-button {
       width: 100%;
+      height: 48px;
+      border: 0;
+      border-radius: 8px;
       color: white;
       background: var(--red);
-      box-shadow: 0 4px 10px rgba(211,47,47,.2);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .5px;
+      box-shadow: 0 5px 13px rgba(201,21,36,.17);
     }
 
-    .btn-primary:hover {
+    .primary-button:hover {
       background: var(--red-dark);
     }
 
-    .btn-dark {
-      color: white;
-      background: var(--black);
+    .primary-button:disabled {
+      opacity: .65;
+      cursor: wait;
     }
 
-    .btn-light {
-      color: var(--black);
-      background: #EEEEEE;
-    }
-
-    .login-note {
+    .login-bottom {
       text-align: center;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .notice {
+      display: none;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 8px;
       font-size: 12px;
       line-height: 1.6;
-      color: var(--muted);
-      margin: 20px 0 0;
-    }
-
-    .message {
-      margin-top: 14px;
-      padding: 11px;
-      border-radius: 8px;
-      font-size: 13px;
-      line-height: 1.5;
-      display: none;
       overflow-wrap: anywhere;
     }
 
-    .message.show {
+    .notice.show {
       display: block;
     }
 
-    .message.error {
-      color: #B71C1C;
-      background: #FFEBEE;
+    .notice.error {
+      background: #fff0f0;
+      color: #a30f1a;
     }
 
-    .message.success {
-      color: #1B5E20;
-      background: #E8F5E9;
+    .notice.success {
+      background: #e9f7ed;
+      color: #216c37;
     }
 
-    .config-link {
+    /* APLIKASI SETELAH LOGIN */
+    .app-layout {
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: var(--sidebar-width);
+      display: flex;
+      flex-direction: column;
+      z-index: 5;
+      color: white;
+      background: var(--black);
+      overflow-y: auto;
+    }
+
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 23px 19px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .sidebar-brand .party-logo {
+      width: 47px;
+      height: 47px;
+      border-radius: 8px;
+    }
+
+    .sidebar-brand strong {
       display: block;
-      margin: 15px auto 0;
-      border: none;
-      background: none;
-      color: var(--muted);
-      text-decoration: underline;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .sidebar-brand small {
+      display: block;
+      margin-top: 3px;
+      color: #c8c8c8;
+      font-size: 10px;
+    }
+
+    .nav-caption {
+      padding: 24px 20px 10px;
+      color: #a9a9a9;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+    }
+
+    .nav-list {
+      padding: 0 11px;
+    }
+
+    .nav-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 13px;
+      margin-bottom: 5px;
+      border: 0;
+      border-radius: 7px;
+      text-align: left;
+      color: #dedede;
+      background: transparent;
       font-size: 12px;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      color: white;
+      background: var(--red);
+    }
+
+    .nav-icon {
+      width: 22px;
+      text-align: center;
+      font-size: 17px;
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+      padding: 17px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      font-size: 10px;
+      line-height: 1.8;
+      color: #bdbdbd;
+    }
+
+    .main-area {
+      min-height: 100vh;
+      margin-left: var(--sidebar-width);
     }
 
     .topbar {
-      background: var(--black);
-      color: white;
-      padding: 16px 22px;
+      height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
+      gap: 15px;
+      padding: 0 30px;
+      background: white;
+      border-bottom: 1px solid var(--border);
     }
 
-    .topbar h1 {
-      margin: 0;
-      font-size: 20px;
-    }
-
-    .topbar small {
-      display: block;
-      margin-top: 5px;
-      color: #DDDDDD;
-      font-size: 12px;
-    }
-
-    .topbar-actions {
+    .topbar-left {
       display: flex;
       align-items: center;
-      gap: 9px;
-      flex-wrap: wrap;
+      gap: 12px;
     }
 
-    .topbar .btn {
-      padding: 10px 13px;
-      font-size: 12px;
+    .topbar h2 {
+      margin: 0;
+      font-size: 18px;
     }
 
-    .dashboard {
-      max-width: 1200px;
-      margin: auto;
-      padding: 25px;
+    .topbar p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 11px;
     }
 
-    .welcome {
+    .user-area {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .user-avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #ffe4e6;
+      color: var(--red);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .user-info strong {
+      display: block;
+      font-size: 11px;
+    }
+
+    .user-info small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .logout-button {
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 10px 12px;
       background: white;
-      border-radius: 14px;
-      padding: 23px;
-      border-left: 5px solid var(--red);
-      margin-bottom: 22px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.04);
+      font-size: 11px;
+      font-weight: 700;
     }
 
-    .welcome h2 {
-      margin: 0 0 8px;
+    .logout-button:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .mobile-menu {
+      display: none;
+      border: 0;
+      background: transparent;
       font-size: 22px;
     }
 
-    .welcome p {
+    .content {
+      max-width: 1500px;
+      padding: 28px 30px;
+      margin: 0 auto;
+    }
+
+    .page-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 24px;
+    }
+
+    .page-heading h2 {
       margin: 0;
+      font-size: 22px;
+    }
+
+    .page-heading p {
+      margin: 7px 0 0;
       color: var(--muted);
-      line-height: 1.6;
-      font-size: 14px;
+      font-size: 12px;
+      line-height: 1.7;
     }
 
-    .section-title {
-      font-size: 17px;
-      margin: 25px 0 14px;
+    .date-label {
+      color: #686868;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 11px 13px;
+      font-size: 11px;
+      white-space: nowrap;
     }
 
-    .stats {
+    .hero-banner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 26px 28px;
+      overflow: hidden;
+      border-radius: 12px;
+      color: white;
+      background: linear-gradient(110deg, #c91524, #99101b);
+      margin-bottom: 25px;
+    }
+
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      right: 45px;
+      top: -115px;
+      border: 35px solid rgba(255,255,255,.08);
+      border-radius: 50%;
+    }
+
+    .hero-banner h3 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 10px;
+      font-size: 21px;
+    }
+
+    .hero-banner p {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      max-width: 540px;
+      font-size: 12px;
+      line-height: 1.8;
+      color: rgba(255,255,255,.85);
+    }
+
+    .hero-badge {
+      position: relative;
+      z-index: 1;
+      padding: 12px 15px;
+      border: 1px solid rgba(255,255,255,.4);
+      border-radius: 8px;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 26px 0 15px;
+    }
+
+    .section-heading h3 {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .section-heading small {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 15px;
     }
 
     .stat-card {
+      min-width: 0;
+      padding: 19px;
       background: white;
-      border-radius: 12px;
-      padding: 20px;
-      border-bottom: 4px solid var(--red);
-      box-shadow: 0 3px 12px rgba(0,0,0,.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
     }
 
-    .stat-label {
+    .stat-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .stat-name {
       color: var(--muted);
-      font-size: 13px;
+      font-size: 11px;
     }
 
-    .stat-value {
-      margin-top: 10px;
-      font-size: 29px;
+    .stat-symbol {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      color: var(--red);
+      background: #fff0f1;
+      font-size: 17px;
+    }
+
+    .stat-number {
+      margin-top: 17px;
+      font-size: 28px;
       font-weight: 800;
     }
 
-    .modules {
+    .stat-foot {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .module-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 15px;
     }
 
-    .module {
-      text-align: left;
+    .module-card {
+      min-width: 0;
+      min-height: 150px;
+      padding: 19px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
       background: white;
-      border: 1px solid #EEEEEE;
-      border-radius: 12px;
-      padding: 20px;
-      min-height: 130px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.03);
+      text-align: left;
+      transition: .18s ease;
     }
 
-    .module:hover {
-      border-color: var(--red);
+    .module-card:hover {
+      border-color: #e2a0a5;
+      box-shadow: 0 5px 18px rgba(0,0,0,.05);
       transform: translateY(-2px);
     }
 
-    .module-icon {
-      display: inline-flex;
+    .module-card .module-symbol {
+      display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
-      margin-bottom: 12px;
-      border-radius: 10px;
+      width: 39px;
+      height: 39px;
+      border-radius: 9px;
       color: var(--red);
-      background: #FFEBEE;
-      font-size: 20px;
+      background: #fff0f1;
+      font-size: 19px;
+      margin-bottom: 14px;
     }
 
-    .module strong {
+    .module-card strong {
       display: block;
-      font-size: 15px;
-      margin-bottom: 6px;
-    }
-
-    .module span:last-child {
       font-size: 12px;
-      color: var(--muted);
-      line-height: 1.5;
+      margin-bottom: 8px;
     }
 
-    .panel {
+    .module-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    .module-placeholder {
+      display: none;
+      padding: 25px;
       margin-top: 22px;
-      padding: 22px;
       background: white;
-      border-radius: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
     }
 
-    .panel h3 {
-      margin-top: 0;
+    .module-placeholder h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
     }
 
-    .footer {
-      text-align: center;
-      padding: 25px;
+    .module-placeholder p {
       color: var(--muted);
       font-size: 12px;
+      line-height: 1.8;
     }
 
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: rgba(0,0,0,.65);
+    .back-button {
+      border: 0;
+      border-radius: 7px;
+      padding: 11px 14px;
+      color: white;
+      background: var(--black);
+      font-size: 11px;
     }
 
-    .modal {
-      width: 100%;
-      max-width: 520px;
+    .app-footer {
+      padding: 20px 30px;
+      border-top: 1px solid var(--border);
       background: white;
-      padding: 25px;
-      border-radius: 14px;
-      box-shadow: 0 15px 45px rgba(0,0,0,.3);
-    }
-
-    .modal h2 {
-      margin-top: 0;
-    }
-
-    .modal p {
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
+      font-size: 10px;
+      line-height: 1.8;
     }
 
-    .modal input {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin: 8px 0 14px;
-    }
+    @media (max-width: 1050px) {
+      .login-visual {
+        padding: 35px;
+      }
 
-    .modal-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+      .login-side {
+        padding: 28px;
+      }
 
-    .modal-actions button {
-      flex: 1;
-    }
-
-    @media (max-width: 800px) {
-      .stats {
+      .stats-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .modules {
+      .module-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-    }
 
-    @media (max-width: 480px) {
-      .login-card {
-        padding: 25px 20px;
-      }
-
-      .dashboard {
-        padding: 15px;
-      }
-
-      .modules {
-        grid-template-columns: 1fr;
+      .content {
+        padding: 23px 20px;
       }
 
       .topbar {
-        padding: 15px;
+        padding: 0 20px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .login-page {
+        display: block;
+        background: var(--bg);
+      }
+
+      .login-visual {
+        display: none;
+      }
+
+      .login-side {
+        min-height: 100vh;
+        padding: 25px;
+      }
+
+      .login-card {
+        max-width: 420px;
+        padding: 25px;
+        border-radius: 13px;
+        background: white;
+        box-shadow: 0 5px 25px rgba(0,0,0,.05);
+      }
+
+      .mobile-logo {
+        display: flex;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform .2s ease;
+        box-shadow: 10px 0 35px rgba(0,0,0,.15);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main-area {
+        margin-left: 0;
+      }
+
+      .topbar {
+        height: 70px;
+        padding: 0 15px;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+      .topbar h2 {
+        font-size: 14px;
+      }
+
+      .topbar p {
+        font-size: 10px;
+      }
+
+      .user-info {
+        display: none;
+      }
+
+      .logout-button {
+        padding: 9px;
+      }
+
+      .content {
+        padding: 20px 15px;
+      }
+
+      .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero-banner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 22px;
+      }
+
+      .hero-banner h3 {
+        font-size: 18px;
+      }
+
+      .date-label {
+        white-space: normal;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .stats-grid,
+      .module-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-card {
+        padding: 17px;
+      }
+
+      .stat-number {
+        font-size: 25px;
+      }
+
+      .login-card {
+        padding: 21px 17px;
+      }
+
+      .login-card h2 {
+        font-size: 25px;
       }
     }
   </style>
@@ -422,247 +905,368 @@
 
 <body>
 
-  <!-- HALAMAN LOGIN -->
+  <!-- ================= HALAMAN LOGIN ================= -->
   <section id="loginPage" class="login-page">
-    <div class="login-card">
-      <div class="brand-mark">EX</div>
 
-      <h1 class="brand-title">EXCO BITUNG ONE</h1>
-
-      <p class="tagline">
-        Satu Sistem, Satu Data, Satu Kemenangan
-      </p>
-
-      <form id="loginForm">
-        <div class="field">
-          <label for="email">Email Pengguna</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Masukkan email"
-            autocomplete="username"
-            required
-          >
+    <div class="login-visual">
+      <div class="visual-brand">
+        <img class="party-logo" src="./Logo.png" alt="Logo Partai Buruh">
+        <div>
+          <h1>EXCO BITUNG ONE</h1>
+          <p>Satu Sistem, Satu Data, Satu Kemenangan</p>
         </div>
-
-        <div class="field">
-          <label for="password">Kata Sandi</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="Masukkan kata sandi"
-            autocomplete="current-password"
-            required
-          >
-        </div>
-
-        <button class="btn btn-primary" type="submit" id="loginButton">
-          MASUK KE APLIKASI
-        </button>
-
-        <div id="loginMessage" class="message"></div>
-      </form>
-
-      <button class="config-link" id="openConfigButton" type="button">
-        Pengaturan URL GAS / backend
-      </button>
-
-      <p class="login-note">
-        Akses hanya untuk pengguna yang berwenang.<br>
-        EXCO BITUNG ONE © 2026
-      </p>
-    </div>
-  </section>
-
-  <!-- HALAMAN DASHBOARD -->
-  <section id="appPage" class="hidden">
-    <header class="topbar">
-      <div>
-        <h1>EXCO BITUNG ONE</h1>
-        <small>Satu Sistem, Satu Data, Satu Kemenangan</small>
       </div>
 
-      <div class="topbar-actions">
-        <span id="userDisplay">Pengguna</span>
-        <button class="btn btn-dark" id="refreshButton" type="button">
-          Muat Ulang Data
-        </button>
-        <button class="btn btn-primary" id="logoutButton" type="button">
-          Keluar
-        </button>
-      </div>
-    </header>
-
-    <main class="dashboard">
-      <section class="welcome">
-        <h2>Selamat Datang di EXCO BITUNG ONE</h2>
+      <div class="visual-copy">
+        <span class="eyebrow">Sistem Informasi Organisasi</span>
+        <h2>Satu Sistem.<br><span>Satu Data.</span><br>Satu Kemenangan.</h2>
         <p>
-          Sistem administrasi, keanggotaan, kegiatan, surat-menyurat,
-          dokumentasi, dan keuangan dalam satu platform.
+          Platform administrasi dan informasi organisasi untuk mendukung
+          pengelolaan data, koordinasi, kegiatan, dan pelaporan secara
+          terintegrasi.
         </p>
-      </section>
-
-      <h3 class="section-title">Ringkasan Data</h3>
-
-      <section class="stats">
-        <div class="stat-card">
-          <div class="stat-label">Total Anggota</div>
-          <div class="stat-value" id="statAnggota">—</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-label">Pengurus</div>
-          <div class="stat-value" id="statPengurus">—</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-label">Program/Kegiatan</div>
-          <div class="stat-value" id="statProgram">—</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-label">Surat</div>
-          <div class="stat-value" id="statSurat">—</div>
-        </div>
-      </section>
-
-      <h3 class="section-title">Menu Utama</h3>
-
-      <section class="modules">
-        <button class="module" data-module="keanggotaan">
-          <span class="module-icon">♙</span>
-          <strong>Keanggotaan</strong>
-          <span>Data anggota dan administrasi keanggotaan.</span>
-        </button>
-
-        <button class="module" data-module="pengurus">
-          <span class="module-icon">♧</span>
-          <strong>Kepengurusan</strong>
-          <span>Data pengurus dan struktur organisasi.</span>
-        </button>
-
-        <button class="module" data-module="surat">
-          <span class="module-icon">▤</span>
-          <strong>Surat</strong>
-          <span>Pengelolaan surat masuk dan surat keluar.</span>
-        </button>
-
-        <button class="module" data-module="program">
-          <span class="module-icon">▦</span>
-          <strong>Program & Kegiatan</strong>
-          <span>Rencana kerja, jadwal, dan realisasi kegiatan.</span>
-        </button>
-
-        <button class="module" data-module="dokumentasi">
-          <span class="module-icon">▣</span>
-          <strong>Dokumentasi</strong>
-          <span>Arsip foto dan dokumen kegiatan.</span>
-        </button>
-
-        <button class="module" data-module="laporan">
-          <span class="module-icon">▥</span>
-          <strong>Laporan Kegiatan</strong>
-          <span>Catatan hasil dan laporan pelaksanaan kegiatan.</span>
-        </button>
-
-        <button class="module" data-module="keuangan">
-          <span class="module-icon">Rp</span>
-          <strong>Keuangan</strong>
-          <span>Pencatatan pemasukan dan pengeluaran.</span>
-        </button>
-
-        <button class="module" data-module="wilayah">
-          <span class="module-icon">⌖</span>
-          <strong>Data Wilayah</strong>
-          <span>Pengelolaan data wilayah organisasi.</span>
-        </button>
-
-        <button class="module" data-module="pengaturan">
-          <span class="module-icon">⚙</span>
-          <strong>Pengaturan</strong>
-          <span>Konfigurasi sistem dan pengaturan aplikasi.</span>
-        </button>
-      </section>
-
-      <section id="modulePanel" class="panel hidden">
-        <h3 id="moduleTitle">Menu</h3>
-        <p id="moduleDescription">
-          Modul ini akan dihubungkan dengan backend.
-        </p>
-        <div id="moduleMessage" class="message"></div>
-        <button id="backButton" class="btn btn-dark" type="button">
-          Kembali ke Dashboard
-        </button>
-      </section>
-
-      <div id="dashboardMessage" class="message"></div>
-    </main>
-
-    <footer class="footer">
-      EXCO BITUNG ONE — Satu Sistem, Satu Data, Satu Kemenangan
-    </footer>
-  </section>
-
-  <!-- JENDELA PENGATURAN URL GAS -->
-  <div id="configModal" class="modal-backdrop hidden">
-    <div class="modal">
-      <h2>Pengaturan Backend GAS</h2>
-
-      <p>
-        Tempelkan URL Web App Google Apps Script di kotak berikut.
-        URL biasanya berakhiran <b>/exec</b>.
-      </p>
-
-      <label for="gasUrl"><b>URL Google Apps Script</b></label>
-
-      <input
-        id="gasUrl"
-        type="url"
-        placeholder="https://script.google.com/macros/s/ID_DEPLOYMENT/exec"
-      >
-
-      <div class="modal-actions">
-        <button class="btn btn-primary" id="saveConfigButton" type="button">
-          Simpan URL
-        </button>
-
-        <button class="btn btn-light" id="testConfigButton" type="button">
-          Tes Koneksi
-        </button>
-
-        <button class="btn btn-dark" id="closeConfigButton" type="button">
-          Tutup
-        </button>
       </div>
 
-      <div id="configMessage" class="message"></div>
+      <div class="visual-footer">
+        EXCO BITUNG ONE &nbsp;•&nbsp; KOTA BITUNG
+      </div>
     </div>
-  </div>
+
+    <div class="login-side">
+      <div class="login-card">
+
+        <div class="mobile-logo">
+          <img class="party-logo" src="./Logo.png" alt="Logo Partai Buruh">
+          <div>
+            <strong>EXCO BITUNG ONE</strong>
+            <div style="font-size:10px;color:#777;margin-top:5px">
+              Satu Sistem, Satu Data, Satu Kemenangan
+            </div>
+          </div>
+        </div>
+
+        <p class="welcome-label">Selamat Datang</p>
+        <h2>Masuk ke Akun</h2>
+        <p class="login-description">
+          Silakan masuk menggunakan akun yang telah terdaftar
+          untuk melanjutkan ke sistem.
+        </p>
+
+        <form id="loginForm">
+          <div class="form-field">
+            <label for="email">EMAIL PENGGUNA</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Masukkan email Anda"
+              autocomplete="username"
+              required
+            >
+          </div>
+
+          <div class="form-field">
+            <label for="password">KATA SANDI</label>
+            <div class="input-wrap">
+              <input
+                id="password"
+                type="password"
+                placeholder="Masukkan kata sandi"
+                autocomplete="current-password"
+                required
+              >
+              <button
+                class="password-toggle"
+                id="togglePassword"
+                type="button"
+              >Lihat</button>
+            </div>
+          </div>
+
+          <div class="login-options">
+            <label class="remember-option">
+              <input id="rememberEmail" type="checkbox">
+              Ingat email saya
+            </label>
+
+            <button class="text-button" id="forgotPassword" type="button">
+              Lupa kata sandi?
+            </button>
+          </div>
+
+          <button class="primary-button" id="loginButton" type="submit">
+            MASUK KE SISTEM &nbsp; →
+          </button>
+
+          <div id="loginNotice" class="notice"></div>
+        </form>
+
+        <div class="login-bottom">
+          Akses terbatas untuk pengguna yang berwenang.<br>
+          <strong>EXCO BITUNG ONE</strong><br>
+          Satu Sistem, Satu Data, Satu Kemenangan
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= DASHBOARD DUMMY ================= -->
+  <section id="appPage" class="app-layout hidden">
+
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-brand">
+        <img class="party-logo" src="./Logo.png" alt="Logo Partai Buruh">
+        <div>
+          <strong>EXCO BITUNG ONE</strong>
+          <small>Satu Sistem, Satu Data, Satu Kemenangan</small>
+        </div>
+      </div>
+
+      <div class="nav-caption">MENU UTAMA</div>
+
+      <nav class="nav-list">
+        <button class="nav-item active" data-module="dashboard">
+          <span class="nav-icon">⌂</span> Dashboard
+        </button>
+        <button class="nav-item" data-module="keanggotaan">
+          <span class="nav-icon">♙</span> Keanggotaan
+        </button>
+        <button class="nav-item" data-module="pengurus">
+          <span class="nav-icon">♧</span> Kepengurusan
+        </button>
+        <button class="nav-item" data-module="surat">
+          <span class="nav-icon">▤</span> Surat
+        </button>
+        <button class="nav-item" data-module="program">
+          <span class="nav-icon">▦</span> Program & Kegiatan
+        </button>
+        <button class="nav-item" data-module="dokumentasi">
+          <span class="nav-icon">▣</span> Dokumentasi
+        </button>
+        <button class="nav-item" data-module="laporan">
+          <span class="nav-icon">▥</span> Laporan Kegiatan
+        </button>
+        <button class="nav-item" data-module="keuangan">
+          <span class="nav-icon">Rp</span> Keuangan
+        </button>
+        <button class="nav-item" data-module="wilayah">
+          <span class="nav-icon">⌖</span> Data Wilayah
+        </button>
+      </nav>
+
+      <div class="nav-caption">LAINNYA</div>
+
+      <nav class="nav-list">
+        <button class="nav-item" data-module="pengaturan">
+          <span class="nav-icon">⚙</span> Pengaturan
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        EXCO BITUNG ONE<br>
+        Satu Sistem, Satu Data, Satu Kemenangan
+      </div>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="mobile-menu" id="mobileMenu" type="button">☰</button>
+          <div>
+            <h2 id="topTitle">Dashboard</h2>
+            <p>Sistem Informasi Organisasi</p>
+          </div>
+        </div>
+
+        <div class="user-area">
+          <div class="user-avatar" id="userAvatar">U</div>
+          <div class="user-info">
+            <strong id="userName">Pengguna</strong>
+            <small id="userRole">Anggota</small>
+          </div>
+          <button class="logout-button" id="logoutButton" type="button">
+            Keluar
+          </button>
+        </div>
+      </header>
+
+      <main class="content">
+        <div id="dashboardContent">
+
+          <div class="page-heading">
+            <div>
+              <h2>Dashboard</h2>
+              <p>
+                Ringkasan informasi dan aktivitas organisasi.
+              </p>
+            </div>
+            <div class="date-label" id="currentDate">EXCO BITUNG ONE</div>
+          </div>
+
+          <section class="hero-banner">
+            <div>
+              <h3>Selamat Datang di EXCO BITUNG ONE</h3>
+              <p>
+                Satu Sistem, Satu Data, Satu Kemenangan.
+                Pusat informasi dan administrasi organisasi dalam satu platform.
+              </p>
+            </div>
+            <div class="hero-badge">KOTA BITUNG</div>
+          </section>
+
+          <div class="section-heading">
+            <h3>Ringkasan Data</h3>
+            <small>Data akan terhubung ke backend</small>
+          </div>
+
+          <section class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-top">
+                <span class="stat-name">Total Anggota</span>
+                <span class="stat-symbol">♙</span>
+              </div>
+              <div class="stat-number" id="statAnggota">—</div>
+              <div class="stat-foot">Data keanggotaan</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-top">
+                <span class="stat-name">Pengurus</span>
+                <span class="stat-symbol">♧</span>
+              </div>
+              <div class="stat-number" id="statPengurus">—</div>
+              <div class="stat-foot">Data kepengurusan</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-top">
+                <span class="stat-name">Program & Kegiatan</span>
+                <span class="stat-symbol">▦</span>
+              </div>
+              <div class="stat-number" id="statProgram">—</div>
+              <div class="stat-foot">Data program organisasi</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-top">
+                <span class="stat-name">Surat</span>
+                <span class="stat-symbol">▤</span>
+              </div>
+              <div class="stat-number" id="statSurat">—</div>
+              <div class="stat-foot">Administrasi surat</div>
+            </div>
+          </section>
+
+          <div class="section-heading">
+            <h3>Menu Aplikasi</h3>
+            <small>Pratinjau tampilan</small>
+          </div>
+
+          <section class="module-grid">
+            <button class="module-card" data-module="keanggotaan">
+              <span class="module-symbol">♙</span>
+              <strong>Keanggotaan</strong>
+              <p>Administrasi dan data anggota organisasi.</p>
+            </button>
+
+            <button class="module-card" data-module="pengurus">
+              <span class="module-symbol">♧</span>
+              <strong>Kepengurusan</strong>
+              <p>Struktur dan data kepengurusan.</p>
+            </button>
+
+            <button class="module-card" data-module="surat">
+              <span class="module-symbol">▤</span>
+              <strong>Surat</strong>
+              <p>Administrasi surat masuk dan keluar.</p>
+            </button>
+
+            <button class="module-card" data-module="program">
+              <span class="module-symbol">▦</span>
+              <strong>Program & Kegiatan</strong>
+              <p>Perencanaan dan pelaksanaan kegiatan.</p>
+            </button>
+
+            <button class="module-card" data-module="dokumentasi">
+              <span class="module-symbol">▣</span>
+              <strong>Dokumentasi</strong>
+              <p>Arsip dokumentasi dan berkas kegiatan.</p>
+            </button>
+
+            <button class="module-card" data-module="laporan">
+              <span class="module-symbol">▥</span>
+              <strong>Laporan Kegiatan</strong>
+              <p>Informasi hasil pelaksanaan kegiatan.</p>
+            </button>
+
+            <button class="module-card" data-module="keuangan">
+              <span class="module-symbol">Rp</span>
+              <strong>Keuangan</strong>
+              <p>Administrasi dan laporan keuangan.</p>
+            </button>
+
+            <button class="module-card" data-module="wilayah">
+              <span class="module-symbol">⌖</span>
+              <strong>Data Wilayah</strong>
+              <p>Referensi dan data wilayah organisasi.</p>
+            </button>
+
+            <button class="module-card" data-module="pengaturan">
+              <span class="module-symbol">⚙</span>
+              <strong>Pengaturan</strong>
+              <p>Pengaturan aplikasi dan hak akses.</p>
+            </button>
+          </section>
+
+          <div id="dashboardNotice" class="notice"></div>
+        </div>
+
+        <section id="modulePlaceholder" class="module-placeholder">
+          <h3 id="moduleTitle">Nama Menu</h3>
+          <p id="moduleDescription">
+            Tampilan modul masih dalam tahap desain.
+          </p>
+          <p>
+            Menu ini masih dummy. Formulir, tabel data, penyimpanan,
+            dan hak akses akan dibuat pada tahap pengembangan berikutnya.
+          </p>
+          <button id="backDashboard" class="back-button" type="button">
+            ← Kembali ke Dashboard
+          </button>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <strong>EXCO BITUNG ONE</strong><br>
+        Satu Sistem, Satu Data, Satu Kemenangan
+      </footer>
+    </div>
+  </section>
+
 
   <script>
     /*
-    ==========================================================
-    KONFIGURASI URL GAS — GANTI URL PADA BARIS DI BAWAH INI
-    ==========================================================
+    ============================================================
+    KONFIGURASI URL GOOGLE APPS SCRIPT
+    ============================================================
+    GANTI URL DI BAWAH INI dengan URL Web App GAS milikmu.
+    URL biasanya berakhiran /exec.
 
-    1. Buka Google Apps Script.
-    2. Deploy > New deployment > Web app.
-    3. Salin Web app URL yang berakhiran /exec.
-    4. Tempelkan URL itu di antara tanda kutip di bawah.
-
-    CONTOH BENTUK URL:
+    CONTOH FORMAT:
     https://script.google.com/macros/s/AKfycbxxxxxxxx/exec
 
-    Ganti seluruh URL contoh di bawah dengan URL MILIKMU.
-    ==========================================================
+    Ganti seluruh URL contoh dengan URL milikmu sendiri.
+    ============================================================
     */
 
     const BACKEND_URL =
       "https://script.google.com/macros/s/AKfycbzu0LMF6O0_ruPyFgbjGZfp9ZJZjGzG-RydmxQyxlSkYVxx_JBWqc9iOhK-4GXWGrTE/exec";
 
     /*
-    Jangan masukkan kata sandi atau token rahasia di bagian ini.
-    URL backend bukan pengganti sistem autentikasi yang aman.
+    ============================================================
+    AKHIR KONFIGURASI
+    Jangan taruh kata sandi atau token rahasia di HTML.
+    ============================================================
     */
 
     const $ = (id) => document.getElementById(id);
@@ -670,61 +1274,62 @@
     let authToken = "";
     let currentUser = null;
 
-    function showMessage(id, text, type = "error") {
-      const el = $(id);
-      el.textContent = text;
-      el.className = "message show " + type;
+    const moduleNames = {
+      dashboard: "Dashboard",
+      keanggotaan: "Keanggotaan",
+      pengurus: "Kepengurusan",
+      surat: "Surat",
+      program: "Program & Kegiatan",
+      dokumentasi: "Dokumentasi",
+      laporan: "Laporan Kegiatan",
+      keuangan: "Keuangan",
+      wilayah: "Data Wilayah",
+      pengaturan: "Pengaturan"
+    };
+
+    const moduleDescriptions = {
+      keanggotaan: "Pengelolaan data anggota organisasi.",
+      pengurus: "Pengelolaan data pengurus dan struktur organisasi.",
+      surat: "Pengelolaan surat masuk dan surat keluar.",
+      program: "Pengelolaan program kerja dan jadwal kegiatan.",
+      dokumentasi: "Pengelolaan dokumentasi dan arsip organisasi.",
+      laporan: "Pengelolaan laporan pelaksanaan kegiatan.",
+      keuangan: "Pengelolaan administrasi dan laporan keuangan.",
+      wilayah: "Pengelolaan referensi wilayah organisasi.",
+      pengaturan: "Pengaturan aplikasi dan hak akses pengguna."
+    };
+
+    function showNotice(id, message, type = "error") {
+      const element = $(id);
+      element.textContent = message;
+      element.className = "notice show " + type;
     }
 
-    function clearMessage(id) {
-      const el = $(id);
-      el.textContent = "";
-      el.className = "message";
+    function clearNotice(id) {
+      $(id).textContent = "";
+      $(id).className = "notice";
     }
 
     function getBackendUrl() {
-      const saved = localStorage.getItem("exco_backend_url");
-      const url = saved || BACKEND_URL;
-
       if (
-        !url ||
-        url.includes("GANTI_URL_GAS_DI_SINI") ||
-        !url.startsWith("https://script.google.com/macros/s/") ||
-        !url.endsWith("/exec")
+        !BACKEND_URL ||
+        BACKEND_URL.includes("GANTI_URL_GAS_DI_SINI") ||
+        !BACKEND_URL.startsWith(
+          "https://script.google.com/macros/s/"
+        ) ||
+        !BACKEND_URL.endsWith("/exec")
       ) {
         throw new Error(
-          "URL GAS belum diisi. Klik Pengaturan URL GAS / backend, lalu tempel URL Web App."
+          "Koneksi backend belum dikonfigurasi. URL GAS perlu diisi terlebih dahulu."
         );
       }
 
-      return url;
-    }
-
-    function saveBackendUrl() {
-      const url = $("gasUrl").value.trim();
-
-      if (
-        !url.startsWith("https://script.google.com/macros/s/") ||
-        !url.endsWith("/exec")
-      ) {
-        showMessage(
-          "configMessage",
-          "URL tidak sesuai. Gunakan URL Web App GAS yang berakhiran /exec."
-        );
-        return false;
-      }
-
-      localStorage.setItem("exco_backend_url", url);
-      showMessage("configMessage", "URL tersimpan di browser ini.", "success");
-      return true;
+      return BACKEND_URL;
     }
 
     async function apiRequest(payload) {
-      const url = getBackendUrl();
-
-      const response = await fetch(url, {
+      const response = await fetch(getBackendUrl(), {
         method: "POST",
-        redirect: "follow",
         headers: {
           "Content-Type": "text/plain;charset=UTF-8"
         },
@@ -738,64 +1343,38 @@
       return await response.json();
     }
 
-    async function testConnection() {
-      clearMessage("configMessage");
+    $("togglePassword").addEventListener("click", () => {
+      const field = $("password");
+      const isPassword = field.type === "password";
 
-      try {
-        if ($("gasUrl").value.trim()) {
-          if (!saveBackendUrl()) return;
-        }
+      field.type = isPassword ? "text" : "password";
+      $("togglePassword").textContent = isPassword ? "Sembunyi" : "Lihat";
+    });
 
-        const result = await apiRequest({ action: "ping" });
+    // Ingat email saja, bukan kata sandi.
+    const rememberedEmail = localStorage.getItem("exco_remembered_email");
 
-        if (result && result.ok) {
-          showMessage(
-            "configMessage",
-            "Koneksi berhasil. Backend: " +
-              (result.app || "Google Apps Script"),
-            "success"
-          );
-        } else {
-          throw new Error(
-            result && result.message
-              ? result.message
-              : "Respons backend belum sesuai kontrak ping."
-          );
-        }
-      } catch (error) {
-        showMessage(
-          "configMessage",
-          error.message +
-            " Pastikan GAS sudah di-deploy dan mendukung action ping."
-        );
-      }
+    if (rememberedEmail) {
+      $("email").value = rememberedEmail;
+      $("rememberEmail").checked = true;
     }
-
-    $("openConfigButton").addEventListener("click", () => {
-      $("gasUrl").value =
-        localStorage.getItem("exco_backend_url") || BACKEND_URL;
-      $("configModal").classList.remove("hidden");
-      clearMessage("configMessage");
-    });
-
-    $("closeConfigButton").addEventListener("click", () => {
-      $("configModal").classList.add("hidden");
-    });
-
-    $("saveConfigButton").addEventListener("click", saveBackendUrl);
-    $("testConfigButton").addEventListener("click", testConnection);
 
     $("loginForm").addEventListener("submit", async (event) => {
       event.preventDefault();
-
-      clearMessage("loginMessage");
+      clearNotice("loginNotice");
 
       const email = $("email").value.trim();
       const password = $("password").value;
       const button = $("loginButton");
 
+      if ($("rememberEmail").checked) {
+        localStorage.setItem("exco_remembered_email", email);
+      } else {
+        localStorage.removeItem("exco_remembered_email");
+      }
+
       button.disabled = true;
-      button.textContent = "MEMERIKSA...";
+      button.textContent = "MEMERIKSA AKUN...";
 
       try {
         const result = await apiRequest({
@@ -808,7 +1387,7 @@
           throw new Error(
             result && result.message
               ? result.message
-              : "Login gagal. Periksa email, kata sandi, atau konfigurasi backend."
+              : "Login gagal. Periksa akun atau konfigurasi backend."
           );
         }
 
@@ -818,24 +1397,44 @@
         $("loginPage").classList.add("hidden");
         $("appPage").classList.remove("hidden");
 
-        $("userDisplay").textContent =
-          result.user.name || result.user.email || "Pengguna";
+        const name = currentUser.name || currentUser.email || "Pengguna";
+        const role = currentUser.role || "Pengguna";
+
+        $("userName").textContent = name;
+        $("userRole").textContent = role;
+        $("userAvatar").textContent = name.charAt(0).toUpperCase();
+
+        $("currentDate").textContent = new Intl.DateTimeFormat(
+          "id-ID",
+          {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+          }
+        ).format(new Date());
 
         await loadDashboard();
       } catch (error) {
-        showMessage(
-          "loginMessage",
+        showNotice(
+          "loginNotice",
           error.message ||
-            "Tidak dapat menghubungi backend. Periksa URL GAS dan deployment."
+            "Tidak dapat terhubung ke server. Periksa URL GAS dan deployment."
         );
       } finally {
         button.disabled = false;
-        button.textContent = "MASUK KE APLIKASI";
+        button.textContent = "MASUK KE SISTEM →";
       }
     });
 
+    $("forgotPassword").addEventListener("click", () => {
+      showNotice(
+        "loginNotice",
+        "Fitur pemulihan kata sandi belum diaktifkan. Silakan hubungi administrator."
+      );
+    });
+
     async function loadDashboard() {
-      clearMessage("dashboardMessage");
+      clearNotice("dashboardNotice");
 
       try {
         const result = await apiRequest({
@@ -847,25 +1446,68 @@
           throw new Error(
             result && result.message
               ? result.message
-              : "Data dashboard belum tersedia dari backend."
+              : "Data dashboard belum tersedia."
           );
         }
 
-        const data = result.data;
-
-        $("statAnggota").textContent = data.anggota ?? 0;
-        $("statPengurus").textContent = data.pengurus ?? 0;
-        $("statProgram").textContent = data.program ?? 0;
-        $("statSurat").textContent = data.surat ?? 0;
+        $("statAnggota").textContent = result.data.anggota ?? 0;
+        $("statPengurus").textContent = result.data.pengurus ?? 0;
+        $("statProgram").textContent = result.data.program ?? 0;
+        $("statSurat").textContent = result.data.surat ?? 0;
       } catch (error) {
-        showMessage(
-          "dashboardMessage",
-          "Dashboard belum berhasil memuat data: " + error.message
+        showNotice(
+          "dashboardNotice",
+          "Data belum dapat dimuat: " + error.message
         );
       }
     }
 
-    $("refreshButton").addEventListener("click", loadDashboard);
+    function openModule(moduleKey) {
+      if (!moduleNames[moduleKey]) return;
+
+      document.querySelectorAll(".nav-item").forEach((item) => {
+        item.classList.toggle(
+          "active",
+          item.dataset.module === moduleKey
+        );
+      });
+
+      $("topTitle").textContent = moduleNames[moduleKey];
+      $("sidebar").classList.remove("open");
+
+      if (moduleKey === "dashboard") {
+        $("dashboardContent").classList.remove("hidden");
+        $("modulePlaceholder").style.display = "none";
+        return;
+      }
+
+      $("dashboardContent").classList.add("hidden");
+      $("modulePlaceholder").style.display = "block";
+      $("moduleTitle").textContent = moduleNames[moduleKey];
+      $("moduleDescription").textContent =
+        moduleDescriptions[moduleKey] ||
+        "Tampilan modul masih dalam tahap desain.";
+
+      $("modulePlaceholder").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    document.querySelectorAll("[data-module]").forEach((button) => {
+      button.addEventListener("click", () => {
+        openModule(button.dataset.module);
+      });
+    });
+
+    $("backDashboard").addEventListener("click", () => {
+      openModule("dashboard");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    $("mobileMenu").addEventListener("click", () => {
+      $("sidebar").classList.toggle("open");
+    });
 
     $("logoutButton").addEventListener("click", () => {
       authToken = "";
@@ -880,74 +1522,9 @@
       $("statProgram").textContent = "—";
       $("statSurat").textContent = "—";
 
-      clearMessage("loginMessage");
-      clearMessage("dashboardMessage");
-    });
-
-    const moduleInfo = {
-      keanggotaan: [
-        "Keanggotaan",
-        "Pengelolaan data anggota. Fitur daftar, tambah, ubah, dan pencarian perlu dihubungkan ke backend."
-      ],
-      pengurus: [
-        "Kepengurusan",
-        "Pengelolaan struktur dan data pengurus. Fitur memerlukan endpoint backend."
-      ],
-      surat: [
-        "Surat",
-        "Pencatatan surat masuk dan surat keluar. Fitur memerlukan endpoint backend."
-      ],
-      program: [
-        "Program & Kegiatan",
-        "Pengelolaan program kerja, jadwal, dan realisasi kegiatan. Fitur memerlukan endpoint backend."
-      ],
-      dokumentasi: [
-        "Dokumentasi",
-        "Pengelolaan dokumentasi dan arsip kegiatan. Fitur memerlukan endpoint backend."
-      ],
-      laporan: [
-        "Laporan Kegiatan",
-        "Penyusunan dan peninjauan laporan kegiatan. Fitur memerlukan endpoint backend."
-      ],
-      keuangan: [
-        "Keuangan",
-        "Pencatatan keuangan sesuai hak akses pengguna. Fitur memerlukan endpoint backend."
-      ],
-      wilayah: [
-        "Data Wilayah",
-        "Pengelolaan referensi wilayah organisasi. Fitur memerlukan endpoint backend."
-      ],
-      pengaturan: [
-        "Pengaturan",
-        "Pengaturan aplikasi dan konfigurasi backend."
-      ]
-    };
-
-    document.querySelectorAll("[data-module]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const key = button.dataset.module;
-        const info = moduleInfo[key];
-
-        $("moduleTitle").textContent = info[0];
-        $("moduleDescription").textContent = info[1];
-        $("modulePanel").classList.remove("hidden");
-
-        if (key === "pengaturan") {
-          $("gasUrl").value =
-            localStorage.getItem("exco_backend_url") || BACKEND_URL;
-          $("configModal").classList.remove("hidden");
-        }
-
-        $("modulePanel").scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-      });
-    });
-
-    $("backButton").addEventListener("click", () => {
-      $("modulePanel").classList.add("hidden");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      clearNotice("loginNotice");
+      clearNotice("dashboardNotice");
+      openModule("dashboard");
     });
   </script>
 
