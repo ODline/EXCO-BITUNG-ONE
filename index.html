@@ -1,0 +1,955 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXCO BITUNG ONE</title>
+  <meta name="theme-color" content="#D32F2F">
+
+  <style>
+    :root {
+      --red: #D32F2F;
+      --red-dark: #B71C1C;
+      --black: #212121;
+      --gray: #F5F5F5;
+      --white: #FFFFFF;
+      --muted: #757575;
+      --border: #E0E0E0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--black);
+      background: var(--gray);
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .login-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background:
+        linear-gradient(135deg, rgba(20,20,20,.97), rgba(60,15,15,.94));
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      padding: 34px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 18px 55px rgba(0,0,0,.3);
+    }
+
+    .brand-mark {
+      width: 66px;
+      height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      border-radius: 18px;
+      background: var(--red);
+      color: white;
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .brand-title {
+      text-align: center;
+      margin: 0;
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    .tagline {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin: 10px 0 28px;
+      line-height: 1.5;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      outline: none;
+      background: #fff;
+    }
+
+    .field input:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(211,47,47,.1);
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 9px;
+      padding: 13px 16px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .btn-primary {
+      width: 100%;
+      color: white;
+      background: var(--red);
+      box-shadow: 0 4px 10px rgba(211,47,47,.2);
+    }
+
+    .btn-primary:hover {
+      background: var(--red-dark);
+    }
+
+    .btn-dark {
+      color: white;
+      background: var(--black);
+    }
+
+    .btn-light {
+      color: var(--black);
+      background: #EEEEEE;
+    }
+
+    .login-note {
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin: 20px 0 0;
+    }
+
+    .message {
+      margin-top: 14px;
+      padding: 11px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+      display: none;
+      overflow-wrap: anywhere;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.error {
+      color: #B71C1C;
+      background: #FFEBEE;
+    }
+
+    .message.success {
+      color: #1B5E20;
+      background: #E8F5E9;
+    }
+
+    .config-link {
+      display: block;
+      margin: 15px auto 0;
+      border: none;
+      background: none;
+      color: var(--muted);
+      text-decoration: underline;
+      font-size: 12px;
+    }
+
+    .topbar {
+      background: var(--black);
+      color: white;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .topbar h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .topbar small {
+      display: block;
+      margin-top: 5px;
+      color: #DDDDDD;
+      font-size: 12px;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap;
+    }
+
+    .topbar .btn {
+      padding: 10px 13px;
+      font-size: 12px;
+    }
+
+    .dashboard {
+      max-width: 1200px;
+      margin: auto;
+      padding: 25px;
+    }
+
+    .welcome {
+      background: white;
+      border-radius: 14px;
+      padding: 23px;
+      border-left: 5px solid var(--red);
+      margin-bottom: 22px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.04);
+    }
+
+    .welcome h2 {
+      margin: 0 0 8px;
+      font-size: 22px;
+    }
+
+    .welcome p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .section-title {
+      font-size: 17px;
+      margin: 25px 0 14px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      border-bottom: 4px solid var(--red);
+      box-shadow: 0 3px 12px rgba(0,0,0,.04);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .stat-value {
+      margin-top: 10px;
+      font-size: 29px;
+      font-weight: 800;
+    }
+
+    .modules {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .module {
+      text-align: left;
+      background: white;
+      border: 1px solid #EEEEEE;
+      border-radius: 12px;
+      padding: 20px;
+      min-height: 130px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.03);
+    }
+
+    .module:hover {
+      border-color: var(--red);
+      transform: translateY(-2px);
+    }
+
+    .module-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      color: var(--red);
+      background: #FFEBEE;
+      font-size: 20px;
+    }
+
+    .module strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .module span:last-child {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .panel {
+      margin-top: 22px;
+      padding: 22px;
+      background: white;
+      border-radius: 12px;
+    }
+
+    .panel h3 {
+      margin-top: 0;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 25px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,.65);
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 520px;
+      background: white;
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 15px 45px rgba(0,0,0,.3);
+    }
+
+    .modal h2 {
+      margin-top: 0;
+    }
+
+    .modal p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .modal input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin: 8px 0 14px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .modal-actions button {
+      flex: 1;
+    }
+
+    @media (max-width: 800px) {
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .modules {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 25px 20px;
+      }
+
+      .dashboard {
+        padding: 15px;
+      }
+
+      .modules {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HALAMAN LOGIN -->
+  <section id="loginPage" class="login-page">
+    <div class="login-card">
+      <div class="brand-mark">EX</div>
+
+      <h1 class="brand-title">EXCO BITUNG ONE</h1>
+
+      <p class="tagline">
+        Satu Sistem, Satu Data, Satu Kemenangan
+      </p>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="email">Email Pengguna</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="Masukkan email"
+            autocomplete="username"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <label for="password">Kata Sandi</label>
+          <input
+            id="password"
+            type="password"
+            placeholder="Masukkan kata sandi"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <button class="btn btn-primary" type="submit" id="loginButton">
+          MASUK KE APLIKASI
+        </button>
+
+        <div id="loginMessage" class="message"></div>
+      </form>
+
+      <button class="config-link" id="openConfigButton" type="button">
+        Pengaturan URL GAS / backend
+      </button>
+
+      <p class="login-note">
+        Akses hanya untuk pengguna yang berwenang.<br>
+        EXCO BITUNG ONE © 2026
+      </p>
+    </div>
+  </section>
+
+  <!-- HALAMAN DASHBOARD -->
+  <section id="appPage" class="hidden">
+    <header class="topbar">
+      <div>
+        <h1>EXCO BITUNG ONE</h1>
+        <small>Satu Sistem, Satu Data, Satu Kemenangan</small>
+      </div>
+
+      <div class="topbar-actions">
+        <span id="userDisplay">Pengguna</span>
+        <button class="btn btn-dark" id="refreshButton" type="button">
+          Muat Ulang Data
+        </button>
+        <button class="btn btn-primary" id="logoutButton" type="button">
+          Keluar
+        </button>
+      </div>
+    </header>
+
+    <main class="dashboard">
+      <section class="welcome">
+        <h2>Selamat Datang di EXCO BITUNG ONE</h2>
+        <p>
+          Sistem administrasi, keanggotaan, kegiatan, surat-menyurat,
+          dokumentasi, dan keuangan dalam satu platform.
+        </p>
+      </section>
+
+      <h3 class="section-title">Ringkasan Data</h3>
+
+      <section class="stats">
+        <div class="stat-card">
+          <div class="stat-label">Total Anggota</div>
+          <div class="stat-value" id="statAnggota">—</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Pengurus</div>
+          <div class="stat-value" id="statPengurus">—</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Program/Kegiatan</div>
+          <div class="stat-value" id="statProgram">—</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Surat</div>
+          <div class="stat-value" id="statSurat">—</div>
+        </div>
+      </section>
+
+      <h3 class="section-title">Menu Utama</h3>
+
+      <section class="modules">
+        <button class="module" data-module="keanggotaan">
+          <span class="module-icon">♙</span>
+          <strong>Keanggotaan</strong>
+          <span>Data anggota dan administrasi keanggotaan.</span>
+        </button>
+
+        <button class="module" data-module="pengurus">
+          <span class="module-icon">♧</span>
+          <strong>Kepengurusan</strong>
+          <span>Data pengurus dan struktur organisasi.</span>
+        </button>
+
+        <button class="module" data-module="surat">
+          <span class="module-icon">▤</span>
+          <strong>Surat</strong>
+          <span>Pengelolaan surat masuk dan surat keluar.</span>
+        </button>
+
+        <button class="module" data-module="program">
+          <span class="module-icon">▦</span>
+          <strong>Program & Kegiatan</strong>
+          <span>Rencana kerja, jadwal, dan realisasi kegiatan.</span>
+        </button>
+
+        <button class="module" data-module="dokumentasi">
+          <span class="module-icon">▣</span>
+          <strong>Dokumentasi</strong>
+          <span>Arsip foto dan dokumen kegiatan.</span>
+        </button>
+
+        <button class="module" data-module="laporan">
+          <span class="module-icon">▥</span>
+          <strong>Laporan Kegiatan</strong>
+          <span>Catatan hasil dan laporan pelaksanaan kegiatan.</span>
+        </button>
+
+        <button class="module" data-module="keuangan">
+          <span class="module-icon">Rp</span>
+          <strong>Keuangan</strong>
+          <span>Pencatatan pemasukan dan pengeluaran.</span>
+        </button>
+
+        <button class="module" data-module="wilayah">
+          <span class="module-icon">⌖</span>
+          <strong>Data Wilayah</strong>
+          <span>Pengelolaan data wilayah organisasi.</span>
+        </button>
+
+        <button class="module" data-module="pengaturan">
+          <span class="module-icon">⚙</span>
+          <strong>Pengaturan</strong>
+          <span>Konfigurasi sistem dan pengaturan aplikasi.</span>
+        </button>
+      </section>
+
+      <section id="modulePanel" class="panel hidden">
+        <h3 id="moduleTitle">Menu</h3>
+        <p id="moduleDescription">
+          Modul ini akan dihubungkan dengan backend.
+        </p>
+        <div id="moduleMessage" class="message"></div>
+        <button id="backButton" class="btn btn-dark" type="button">
+          Kembali ke Dashboard
+        </button>
+      </section>
+
+      <div id="dashboardMessage" class="message"></div>
+    </main>
+
+    <footer class="footer">
+      EXCO BITUNG ONE — Satu Sistem, Satu Data, Satu Kemenangan
+    </footer>
+  </section>
+
+  <!-- JENDELA PENGATURAN URL GAS -->
+  <div id="configModal" class="modal-backdrop hidden">
+    <div class="modal">
+      <h2>Pengaturan Backend GAS</h2>
+
+      <p>
+        Tempelkan URL Web App Google Apps Script di kotak berikut.
+        URL biasanya berakhiran <b>/exec</b>.
+      </p>
+
+      <label for="gasUrl"><b>URL Google Apps Script</b></label>
+
+      <input
+        id="gasUrl"
+        type="url"
+        placeholder="https://script.google.com/macros/s/ID_DEPLOYMENT/exec"
+      >
+
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="saveConfigButton" type="button">
+          Simpan URL
+        </button>
+
+        <button class="btn btn-light" id="testConfigButton" type="button">
+          Tes Koneksi
+        </button>
+
+        <button class="btn btn-dark" id="closeConfigButton" type="button">
+          Tutup
+        </button>
+      </div>
+
+      <div id="configMessage" class="message"></div>
+    </div>
+  </div>
+
+  <script>
+    /*
+    ==========================================================
+    KONFIGURASI URL GAS — GANTI URL PADA BARIS DI BAWAH INI
+    ==========================================================
+
+    1. Buka Google Apps Script.
+    2. Deploy > New deployment > Web app.
+    3. Salin Web app URL yang berakhiran /exec.
+    4. Tempelkan URL itu di antara tanda kutip di bawah.
+
+    CONTOH BENTUK URL:
+    https://script.google.com/macros/s/AKfycbxxxxxxxx/exec
+
+    Ganti seluruh URL contoh di bawah dengan URL MILIKMU.
+    ==========================================================
+    */
+
+    const BACKEND_URL =
+      "https://script.google.com/macros/s/AKfycbzu0LMF6O0_ruPyFgbjGZfp9ZJZjGzG-RydmxQyxlSkYVxx_JBWqc9iOhK-4GXWGrTE/exec";
+
+    /*
+    Jangan masukkan kata sandi atau token rahasia di bagian ini.
+    URL backend bukan pengganti sistem autentikasi yang aman.
+    */
+
+    const $ = (id) => document.getElementById(id);
+
+    let authToken = "";
+    let currentUser = null;
+
+    function showMessage(id, text, type = "error") {
+      const el = $(id);
+      el.textContent = text;
+      el.className = "message show " + type;
+    }
+
+    function clearMessage(id) {
+      const el = $(id);
+      el.textContent = "";
+      el.className = "message";
+    }
+
+    function getBackendUrl() {
+      const saved = localStorage.getItem("exco_backend_url");
+      const url = saved || BACKEND_URL;
+
+      if (
+        !url ||
+        url.includes("GANTI_URL_GAS_DI_SINI") ||
+        !url.startsWith("https://script.google.com/macros/s/") ||
+        !url.endsWith("/exec")
+      ) {
+        throw new Error(
+          "URL GAS belum diisi. Klik Pengaturan URL GAS / backend, lalu tempel URL Web App."
+        );
+      }
+
+      return url;
+    }
+
+    function saveBackendUrl() {
+      const url = $("gasUrl").value.trim();
+
+      if (
+        !url.startsWith("https://script.google.com/macros/s/") ||
+        !url.endsWith("/exec")
+      ) {
+        showMessage(
+          "configMessage",
+          "URL tidak sesuai. Gunakan URL Web App GAS yang berakhiran /exec."
+        );
+        return false;
+      }
+
+      localStorage.setItem("exco_backend_url", url);
+      showMessage("configMessage", "URL tersimpan di browser ini.", "success");
+      return true;
+    }
+
+    async function apiRequest(payload) {
+      const url = getBackendUrl();
+
+      const response = await fetch(url, {
+        method: "POST",
+        redirect: "follow",
+        headers: {
+          "Content-Type": "text/plain;charset=UTF-8"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error("Server mengembalikan HTTP " + response.status);
+      }
+
+      return await response.json();
+    }
+
+    async function testConnection() {
+      clearMessage("configMessage");
+
+      try {
+        if ($("gasUrl").value.trim()) {
+          if (!saveBackendUrl()) return;
+        }
+
+        const result = await apiRequest({ action: "ping" });
+
+        if (result && result.ok) {
+          showMessage(
+            "configMessage",
+            "Koneksi berhasil. Backend: " +
+              (result.app || "Google Apps Script"),
+            "success"
+          );
+        } else {
+          throw new Error(
+            result && result.message
+              ? result.message
+              : "Respons backend belum sesuai kontrak ping."
+          );
+        }
+      } catch (error) {
+        showMessage(
+          "configMessage",
+          error.message +
+            " Pastikan GAS sudah di-deploy dan mendukung action ping."
+        );
+      }
+    }
+
+    $("openConfigButton").addEventListener("click", () => {
+      $("gasUrl").value =
+        localStorage.getItem("exco_backend_url") || BACKEND_URL;
+      $("configModal").classList.remove("hidden");
+      clearMessage("configMessage");
+    });
+
+    $("closeConfigButton").addEventListener("click", () => {
+      $("configModal").classList.add("hidden");
+    });
+
+    $("saveConfigButton").addEventListener("click", saveBackendUrl);
+    $("testConfigButton").addEventListener("click", testConnection);
+
+    $("loginForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      clearMessage("loginMessage");
+
+      const email = $("email").value.trim();
+      const password = $("password").value;
+      const button = $("loginButton");
+
+      button.disabled = true;
+      button.textContent = "MEMERIKSA...";
+
+      try {
+        const result = await apiRequest({
+          action: "login",
+          email: email,
+          password: password
+        });
+
+        if (!result || !result.ok || !result.token || !result.user) {
+          throw new Error(
+            result && result.message
+              ? result.message
+              : "Login gagal. Periksa email, kata sandi, atau konfigurasi backend."
+          );
+        }
+
+        authToken = result.token;
+        currentUser = result.user;
+
+        $("loginPage").classList.add("hidden");
+        $("appPage").classList.remove("hidden");
+
+        $("userDisplay").textContent =
+          result.user.name || result.user.email || "Pengguna";
+
+        await loadDashboard();
+      } catch (error) {
+        showMessage(
+          "loginMessage",
+          error.message ||
+            "Tidak dapat menghubungi backend. Periksa URL GAS dan deployment."
+        );
+      } finally {
+        button.disabled = false;
+        button.textContent = "MASUK KE APLIKASI";
+      }
+    });
+
+    async function loadDashboard() {
+      clearMessage("dashboardMessage");
+
+      try {
+        const result = await apiRequest({
+          action: "dashboard",
+          token: authToken
+        });
+
+        if (!result || !result.ok || !result.data) {
+          throw new Error(
+            result && result.message
+              ? result.message
+              : "Data dashboard belum tersedia dari backend."
+          );
+        }
+
+        const data = result.data;
+
+        $("statAnggota").textContent = data.anggota ?? 0;
+        $("statPengurus").textContent = data.pengurus ?? 0;
+        $("statProgram").textContent = data.program ?? 0;
+        $("statSurat").textContent = data.surat ?? 0;
+      } catch (error) {
+        showMessage(
+          "dashboardMessage",
+          "Dashboard belum berhasil memuat data: " + error.message
+        );
+      }
+    }
+
+    $("refreshButton").addEventListener("click", loadDashboard);
+
+    $("logoutButton").addEventListener("click", () => {
+      authToken = "";
+      currentUser = null;
+
+      $("appPage").classList.add("hidden");
+      $("loginPage").classList.remove("hidden");
+      $("password").value = "";
+
+      $("statAnggota").textContent = "—";
+      $("statPengurus").textContent = "—";
+      $("statProgram").textContent = "—";
+      $("statSurat").textContent = "—";
+
+      clearMessage("loginMessage");
+      clearMessage("dashboardMessage");
+    });
+
+    const moduleInfo = {
+      keanggotaan: [
+        "Keanggotaan",
+        "Pengelolaan data anggota. Fitur daftar, tambah, ubah, dan pencarian perlu dihubungkan ke backend."
+      ],
+      pengurus: [
+        "Kepengurusan",
+        "Pengelolaan struktur dan data pengurus. Fitur memerlukan endpoint backend."
+      ],
+      surat: [
+        "Surat",
+        "Pencatatan surat masuk dan surat keluar. Fitur memerlukan endpoint backend."
+      ],
+      program: [
+        "Program & Kegiatan",
+        "Pengelolaan program kerja, jadwal, dan realisasi kegiatan. Fitur memerlukan endpoint backend."
+      ],
+      dokumentasi: [
+        "Dokumentasi",
+        "Pengelolaan dokumentasi dan arsip kegiatan. Fitur memerlukan endpoint backend."
+      ],
+      laporan: [
+        "Laporan Kegiatan",
+        "Penyusunan dan peninjauan laporan kegiatan. Fitur memerlukan endpoint backend."
+      ],
+      keuangan: [
+        "Keuangan",
+        "Pencatatan keuangan sesuai hak akses pengguna. Fitur memerlukan endpoint backend."
+      ],
+      wilayah: [
+        "Data Wilayah",
+        "Pengelolaan referensi wilayah organisasi. Fitur memerlukan endpoint backend."
+      ],
+      pengaturan: [
+        "Pengaturan",
+        "Pengaturan aplikasi dan konfigurasi backend."
+      ]
+    };
+
+    document.querySelectorAll("[data-module]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const key = button.dataset.module;
+        const info = moduleInfo[key];
+
+        $("moduleTitle").textContent = info[0];
+        $("moduleDescription").textContent = info[1];
+        $("modulePanel").classList.remove("hidden");
+
+        if (key === "pengaturan") {
+          $("gasUrl").value =
+            localStorage.getItem("exco_backend_url") || BACKEND_URL;
+          $("configModal").classList.remove("hidden");
+        }
+
+        $("modulePanel").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      });
+    });
+
+    $("backButton").addEventListener("click", () => {
+      $("modulePanel").classList.add("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+
+</body>
+</html>
