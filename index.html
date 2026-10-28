@@ -84,7 +84,6 @@
     }
 
     .login-form { margin-top: 48px; }
-
     .form-group { margin-bottom: 25px; }
 
     .form-group label {
@@ -200,42 +199,6 @@
 
     .message.visible { display: block; }
 
-    .dashboard {
-      display: none;
-      width: 100%;
-      max-width: 760px;
-      margin: auto 0;
-    }
-
-    .dashboard.visible { display: block; }
-
-    .dashboard-header {
-      padding-bottom: 20px;
-      border-bottom: 3px solid var(--orange);
-    }
-
-    .dashboard-header h2 {
-      margin: 0 0 8px;
-      font-size: 27px;
-    }
-
-    .dashboard-note {
-      margin-top: 24px;
-      padding: 20px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      line-height: 1.7;
-    }
-
-    .logout-button {
-      margin-top: 18px;
-      padding: 11px 20px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: white;
-      cursor: pointer;
-    }
-
     .footer {
       width: 100%;
       margin-top: 35px;
@@ -347,22 +310,6 @@
       </form>
     </section>
 
-    <section class="dashboard" id="dashboardPage">
-      <header class="dashboard-header">
-        <h2>EXCO BITUNG ONE</h2>
-        <p>Satu Sistem, Satu Data, Satu Kemenangan</p>
-      </header>
-
-      <div class="dashboard-note">
-        <h3>Selamat Datang</h3>
-        <p id="welcomeText"></p>
-        <p>Modul aplikasi akan dikembangkan pada tahap berikutnya.</p>
-        <button class="logout-button" id="logoutButton" type="button">
-          Keluar
-        </button>
-      </div>
-    </section>
-
     <footer class="footer">
       <p class="footer-credit">Design &amp; Develop by EXCO Partai Buruh Bitung</p>
       <p class="footer-version">Versi 1.0.0</p>
@@ -379,6 +326,30 @@
     const message = document.getElementById("message");
     const passwordInput = document.getElementById("password");
 
+    /*
+      PEMETAAN ROLE KE DASHBOARD
+
+      Nilai di sebelah kiri harus sesuai dengan role
+      yang dikirim oleh backend Apps Script.
+    */
+    const DASHBOARD_BY_ROLE = {
+      "KETUA_BITUNG": "Bitung1.html",
+      "KETUA_EXCO_BITUNG": "Bitung1.html",
+      "KETUA": "Bitung1.html",
+
+      "SEKRETARIS": "Bitung2.html",
+      "SEKRETARIS_BITUNG": "Bitung2.html",
+      "SEKRETARIS_EXCO_BITUNG": "Bitung2.html",
+
+      "BENDAHARA": "Bitung3.html",
+      "BENDAHARA_BITUNG": "Bitung3.html",
+      "BENDAHARA_EXCO_BITUNG": "Bitung3.html",
+
+      "KETUA_PROVINSI": "Sulut1.html",
+      "KETUA_EXCO_PROVINSI": "Sulut1.html",
+      "SUPER_ADMIN": "Sulut1.html"
+    };
+
     function showMessage(text) {
       message.textContent = text;
       message.classList.add("visible");
@@ -387,6 +358,18 @@
     function hideMessage() {
       message.textContent = "";
       message.classList.remove("visible");
+    }
+
+    function normalizeRole(role) {
+      return String(role || "")
+        .trim()
+        .toUpperCase()
+        .replace(/[\s-]+/g, "_");
+    }
+
+    function getDashboardForRole(role) {
+      const normalizedRole = normalizeRole(role);
+      return DASHBOARD_BY_ROLE[normalizedRole] || null;
     }
 
     document.getElementById("togglePassword").addEventListener("click", function () {
@@ -410,10 +393,6 @@
       loginButton.textContent = "MEMERIKSA...";
 
       try {
-        /*
-         * Gunakan text/plain agar permintaan POST sederhana
-         * tidak memicu preflight CORS.
-         */
         const response = await fetch(BACKEND_URL, {
           method: "POST",
           headers: {
@@ -434,21 +413,29 @@
         const result = await response.json();
 
         if (result.success && result.token && result.user) {
+          const user = result.user;
+          const dashboard = getDashboardForRole(user.role);
+
+          /*
+            Simpan sesi hanya setelah login berhasil.
+            Jika role tidak dikenali, jangan arahkan pengguna
+            ke dashboard yang tidak sesuai.
+          */
+          if (!dashboard) {
+            showMessage(
+              "Login berhasil, tetapi role akun (" +
+              (user.role || "tidak tersedia") +
+              ") belum dipetakan ke dashboard. Periksa role di database."
+            );
+            return;
+          }
+
           sessionStorage.setItem("exco_token", result.token);
-          sessionStorage.setItem(
-            "exco_user",
-            JSON.stringify(result.user)
-          );
+          sessionStorage.setItem("exco_user", JSON.stringify(user));
 
-          document.getElementById("loginPage").style.display = "none";
-          document.getElementById("dashboardPage").classList.add("visible");
+          // Arahkan ke dashboard berdasarkan role akun.
+          window.location.href = "./" + dashboard;
 
-          document.getElementById("welcomeText").textContent =
-            "Selamat datang, " +
-            (result.user.nama || "Pengguna") +
-            ". Role: " +
-            (result.user.role || "Pengguna") +
-            ". Login berhasil.";
         } else {
           showMessage(
             result.message || "Nomor KTA atau kata sandi tidak sesuai."
@@ -477,37 +464,6 @@
     document.getElementById("registerLink").addEventListener("click", function (event) {
       event.preventDefault();
       showMessage("Fitur pendaftaran anggota baru belum tersedia.");
-    });
-
-    document.getElementById("logoutButton").addEventListener("click", async function () {
-      const token = sessionStorage.getItem("exco_token");
-
-      if (token) {
-        try {
-          await fetch(BACKEND_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "text/plain;charset=utf-8"
-            },
-            body: JSON.stringify({
-              action: "logout",
-              token: token
-            }),
-            redirect: "follow"
-          });
-        } catch (error) {
-          console.warn("Logout backend tidak terkonfirmasi.", error);
-        }
-      }
-
-      sessionStorage.removeItem("exco_token");
-      sessionStorage.removeItem("exco_user");
-
-      document.getElementById("dashboardPage").classList.remove("visible");
-      document.getElementById("loginPage").style.display = "";
-      loginForm.reset();
-      hideMessage();
-      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   </script>
 </body>
