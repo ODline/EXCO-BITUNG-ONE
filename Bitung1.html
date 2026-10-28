@@ -1,0 +1,721 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f45b0b">
+  <title>Dashboard Ketua | EXCO BITUNG ONE</title>
+
+  <style>
+    :root {
+      --orange: #f45b0b;
+      --orange-dark: #df4b00;
+      --orange-light: #fff0e6;
+      --background: #f5f5f5;
+      --white: #ffffff;
+      --text: #202020;
+      --muted: #858585;
+      --border: #eeeeee;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--background);
+      min-height: 100vh;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1100px;
+      min-height: 100vh;
+      margin: auto;
+      padding-bottom: 90px;
+      background: var(--background);
+    }
+
+    /* HEADER */
+
+    .header {
+      background: linear-gradient(135deg, var(--orange), #ff790e);
+      color: white;
+      padding: 25px 24px 30px;
+      border-radius: 0 0 22px 22px;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .greeting {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .user-name {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .icon-button {
+      width: 38px;
+      height: 38px;
+      border: 0;
+      color: white;
+      background: transparent;
+      font-size: 23px;
+      position: relative;
+    }
+
+    .notification-dot {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ffe36a;
+      border: 1px solid white;
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(255,255,255,.7);
+      border-radius: 50%;
+      background: rgba(255,255,255,.22);
+      color: white;
+      font-weight: 700;
+      font-size: 15px;
+      overflow: hidden;
+    }
+
+    /* CONTENT */
+
+    .content {
+      padding: 0 20px;
+      margin-top: -13px;
+    }
+
+    /* E-KTA CARD */
+
+    .kta-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 155px;
+      padding: 20px;
+      color: white;
+      border-radius: 17px;
+      background: linear-gradient(120deg, #f45b0b, #ed680f);
+      box-shadow: var(--shadow);
+      margin-bottom: 23px;
+    }
+
+    .kta-card::after {
+      content: "✿";
+      position: absolute;
+      right: -7px;
+      bottom: -43px;
+      font-size: 155px;
+      line-height: 1;
+      color: rgba(255,255,255,.15);
+      transform: rotate(-18deg);
+      pointer-events: none;
+    }
+
+    .kta-label {
+      position: relative;
+      z-index: 1;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .3px;
+      opacity: .92;
+    }
+
+    .kta-title {
+      position: relative;
+      z-index: 1;
+      margin-top: 3px;
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .kta-caption {
+      position: relative;
+      z-index: 1;
+      margin-top: 13px;
+      font-size: 13px;
+      opacity: .9;
+    }
+
+    .kta-total {
+      position: relative;
+      z-index: 1;
+      margin-top: 3px;
+      font-size: 23px;
+      font-weight: 800;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 24px 0 14px;
+    }
+
+    .section-heading h2 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .text-link {
+      color: var(--orange-dark);
+      background: none;
+      border: 0;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* MENU GRID */
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .menu-item {
+      min-height: 125px;
+      padding: 15px 6px;
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,.025);
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 17px rgba(0,0,0,.1);
+    }
+
+    .menu-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 57px;
+      height: 57px;
+      background: var(--orange-light);
+      color: var(--orange);
+      border-radius: 50%;
+      font-size: 27px;
+    }
+
+    .menu-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    /* NEWS */
+
+    .news-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .news-card {
+      background: white;
+      overflow: hidden;
+      border-radius: 13px;
+      box-shadow: var(--shadow);
+    }
+
+    .news-image {
+      width: 100%;
+      height: 130px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      background: linear-gradient(135deg, #f45b0b, #ff9b51);
+      font-size: 35px;
+    }
+
+    .news-image.second {
+      background: linear-gradient(135deg, #525252, #a0a0a0);
+    }
+
+    .news-info {
+      padding: 11px;
+    }
+
+    .news-title {
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
+    .news-meta {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* SUMMARY */
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .summary-card {
+      padding: 15px 12px;
+      background: white;
+      border-radius: 13px;
+      box-shadow: var(--shadow);
+    }
+
+    .summary-label {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .summary-value {
+      font-size: 22px;
+      font-weight: 800;
+      margin-top: 8px;
+      color: var(--orange-dark);
+    }
+
+    /* BOTTOM NAVIGATION */
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      width: 100%;
+      max-width: 1100px;
+      min-height: 72px;
+      padding: 9px 10px calc(9px + env(safe-area-inset-bottom));
+      background: rgba(255,255,255,.97);
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      box-shadow: 0 -3px 12px rgba(0,0,0,.04);
+    }
+
+    .nav-item {
+      border: 0;
+      background: transparent;
+      color: #858585;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+    }
+
+    .nav-icon {
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .nav-item.active {
+      color: var(--orange-dark);
+      font-weight: 700;
+    }
+
+    /* NOTIFICATION / MESSAGE */
+
+    .notice {
+      display: none;
+      margin: 16px 0;
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: white;
+      border-left: 4px solid var(--orange);
+      box-shadow: var(--shadow);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .notice.show {
+      display: block;
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 11px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 700px) {
+      .app {
+        max-width: 430px;
+        background: var(--background);
+      }
+
+      .header {
+        padding: 24px 18px 29px;
+        border-radius: 0;
+      }
+
+      .greeting {
+        font-size: 20px;
+      }
+
+      .content {
+        padding: 0 16px;
+      }
+
+      .menu-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .menu-item {
+        min-height: 112px;
+      }
+
+      .news-image {
+        height: 95px;
+      }
+
+      .summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .kta-card {
+        min-height: 150px;
+      }
+
+      .bottom-nav {
+        max-width: 430px;
+      }
+    }
+
+    @media (min-width: 701px) {
+      .header {
+        padding: 28px 32px 36px;
+      }
+
+      .content {
+        padding: 0 32px;
+      }
+
+      .news-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .news-image {
+        height: 170px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+    <header class="header">
+      <div class="header-top">
+        <div>
+          <div class="greeting">Halo, Bung!</div>
+          <div class="user-name" id="userName">Ketua EXCO Provinsi</div>
+        </div>
+
+        <div class="header-actions">
+          <button class="icon-button" id="notificationButton"
+                  aria-label="Notifikasi" title="Notifikasi">
+            ♟
+            <span class="notification-dot"></span>
+          </button>
+
+          <button class="avatar" id="profileButton"
+                  aria-label="Profil pengguna" title="Profil pengguna">
+            EX
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <div class="notice" id="notice" role="status"></div>
+
+      <section class="kta-card" aria-label="Ringkasan anggota">
+        <div class="kta-label">KARTU ANGGOTA DIGITAL</div>
+        <div class="kta-title">E-KTA</div>
+        <div class="kta-caption">Total Anggota Terdaftar</div>
+        <div class="kta-total" id="totalAnggota">—</div>
+      </section>
+
+      <section aria-label="Menu utama">
+        <div class="section-heading">
+          <h2>Menu Utama</h2>
+          <button class="text-link" data-menu="Semua Menu">Lihat Semua</button>
+        </div>
+
+        <div class="menu-grid">
+          <button class="menu-item" data-menu="Anggota">
+            <span class="menu-icon">👥</span>
+            <span class="menu-label">Anggota</span>
+          </button>
+
+          <button class="menu-item" data-menu="Pengurus">
+            <span class="menu-icon">🪪</span>
+            <span class="menu-label">Pengurus</span>
+          </button>
+
+          <button class="menu-item" data-menu="Wilayah">
+            <span class="menu-icon">📍</span>
+            <span class="menu-label">Wilayah</span>
+          </button>
+
+          <button class="menu-item" data-menu="Administrasi">
+            <span class="menu-icon">📄</span>
+            <span class="menu-label">Administrasi</span>
+          </button>
+
+          <button class="menu-item" data-menu="Kegiatan">
+            <span class="menu-icon">🗓️</span>
+            <span class="menu-label">Kegiatan</span>
+          </button>
+
+          <button class="menu-item" data-menu="Keuangan">
+            <span class="menu-icon">👛</span>
+            <span class="menu-label">Keuangan</span>
+          </button>
+
+          <button class="menu-item" data-menu="Laporan">
+            <span class="menu-icon">📊</span>
+            <span class="menu-label">Laporan</span>
+          </button>
+
+          <button class="menu-item" data-menu="Pengaturan">
+            <span class="menu-icon">⚙️</span>
+            <span class="menu-label">Pengaturan</span>
+          </button>
+        </div>
+      </section>
+
+      <section aria-label="Ringkasan organisasi">
+        <div class="section-heading">
+          <h2>Ringkasan Organisasi</h2>
+        </div>
+
+        <div class="summary-grid">
+          <div class="summary-card">
+            <div class="summary-label">Total Anggota</div>
+            <div class="summary-value" id="summaryAnggota">—</div>
+          </div>
+
+          <div class="summary-card">
+            <div class="summary-label">Wilayah Terdata</div>
+            <div class="summary-value" id="summaryWilayah">—</div>
+          </div>
+
+          <div class="summary-card">
+            <div class="summary-label">Pengurus Aktif</div>
+            <div class="summary-value" id="summaryPengurus">—</div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-label="Berita terkini">
+        <div class="section-heading">
+          <h2>Berita Terkini</h2>
+          <button class="text-link" data-menu="Berita Terkini">Lihat Semua</button>
+        </div>
+
+        <div class="news-list">
+          <article class="news-card">
+            <div class="news-image">📣</div>
+            <div class="news-info">
+              <div class="news-title">Informasi dan Agenda Organisasi</div>
+              <div class="news-meta">Informasi organisasi</div>
+            </div>
+          </article>
+
+          <article class="news-card">
+            <div class="news-image second">🤝</div>
+            <div class="news-info">
+              <div class="news-title">Dokumentasi Kegiatan EXCO</div>
+              <div class="news-meta">Dokumentasi kegiatan</div>
+            </div>
+          </article>
+
+          <article class="news-card">
+            <div class="news-image">📋</div>
+            <div class="news-info">
+              <div class="news-title">Laporan dan Perkembangan Wilayah</div>
+              <div class="news-meta">Informasi wilayah</div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="footer-note">
+        EXCO BITUNG ONE<br>
+        Satu Sistem, Satu Data, Satu Kemenangan.
+      </div>
+
+    </main>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Navigasi utama">
+    <button class="nav-item active" data-menu="Beranda">
+      <span class="nav-icon">⌂</span>
+      <span>Beranda</span>
+    </button>
+
+    <button class="nav-item" data-menu="Keanggotaan">
+      <span class="nav-icon">👥</span>
+      <span>Keanggotaan</span>
+    </button>
+
+    <button class="nav-item" data-menu="Advokasi">
+      <span class="nav-icon">📢</span>
+      <span>Advokasi</span>
+    </button>
+
+    <button class="nav-item" data-menu="Akun">
+      <span class="nav-icon">⚙</span>
+      <span>Akun</span>
+    </button>
+  </nav>
+
+  <script>
+    /*
+      DASHBOARD KETUA EXCO PROVINSI
+
+      Data pada halaman ini masih berupa tampilan awal.
+      Statistik akan diisi setelah endpoint ringkasan
+      Google Apps Script tersedia.
+    */
+
+    const BACKEND_URL =
+      "https://script.google.com/macros/s/AKfycbwzJAE4WyKP7aovKdRJu3Yovst5NFyywUJMHjBOgMOrrHbRdCaDBYeiewNMRJNbQEg6/exec";
+
+    const notice = document.getElementById("notice");
+
+    function showNotice(message) {
+      notice.textContent = message;
+      notice.classList.add("show");
+      notice.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function getSavedUser() {
+      try {
+        const saved = sessionStorage.getItem("exco_user");
+        return saved ? JSON.parse(saved) : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function initializeDashboard() {
+      const user = getSavedUser();
+
+      if (!user) {
+        // Jika sesi tidak ditemukan, kembali ke halaman login.
+        window.location.replace("./index.html");
+        return;
+      }
+
+      const displayName =
+        user.nama || user.namaTampilan || user.name || "Pengguna";
+
+      document.getElementById("userName").textContent = displayName;
+
+      const initials = displayName
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(part => part.charAt(0).toUpperCase())
+        .join("");
+
+      document.getElementById("profileButton").textContent =
+        initials || "EX";
+    }
+
+    // Semua menu menampilkan pemberitahuan sampai halaman modul dibuat.
+    document.querySelectorAll("[data-menu]").forEach(button => {
+      button.addEventListener("click", () => {
+        const menu = button.dataset.menu;
+
+        if (menu === "Beranda") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        }
+
+        if (menu === "Akun" || menu === "Pengaturan") {
+          showNotice("Menu akun dan pengaturan akan dibuat pada tahap berikutnya.");
+          return;
+        }
+
+        showNotice(
+          "Menu " + menu +
+          " sudah disiapkan pada tampilan. Fungsinya akan dihubungkan pada tahap berikutnya."
+        );
+      });
+    });
+
+    document.getElementById("notificationButton").addEventListener("click", () => {
+      showNotice("Belum ada notifikasi yang ditampilkan.");
+    });
+
+    document.getElementById("profileButton").addEventListener("click", () => {
+      const user = getSavedUser();
+      const role = user && user.role ? user.role : "Pengguna";
+      showNotice("Akun aktif: " + role + ". Menu profil akan dikembangkan berikutnya.");
+    });
+
+    initializeDashboard();
+  </script>
+</body>
+</html>
