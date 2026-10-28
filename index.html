@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
-
   <title>EXCO BITUNG ONE</title>
 
   <style>
@@ -15,39 +14,26 @@
       --text: #17212D;
       --muted: #737D8B;
       --border: #D9DEE5;
-      --background: #FFFFFF;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html,
     body {
       margin: 0;
-      min-height: 100%;
-      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background: var(--background);
-    }
-
-    body {
       min-height: 100vh;
-      min-height: 100dvh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: #fff;
     }
 
-    button,
-    input {
-      font: inherit;
-    }
+    button, input { font: inherit; }
 
     .page {
       min-height: 100vh;
-      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 44px 24px 18px;
+      padding: 35px 22px 20px;
     }
 
     .login-container {
@@ -56,74 +42,56 @@
       margin: auto 0;
     }
 
-    /* LOGO PARTAI BURUH */
-    .brand {
-      text-align: center;
-      margin-bottom: 0;
-    }
+    .brand { text-align: center; }
 
     .brand-logo {
       display: block;
       width: min(260px, 68%);
-      height: auto;
       max-height: 150px;
       object-fit: contain;
       margin: 0 auto 28px;
     }
 
-    /* JUDUL DAN GARIS */
     .brand-title {
       display: table;
       max-width: 100%;
       margin: 0 auto;
-      text-align: center;
     }
 
     .brand-title h1 {
       margin: 0;
-      font-size: clamp(27px, 6.5vw, 44px);
-      line-height: 1.12;
+      color: #101820;
+      font-size: clamp(25px, 6.5vw, 44px);
       font-weight: 900;
       letter-spacing: -1.5px;
       white-space: nowrap;
-      color: #101820;
     }
 
-    /* Garis tepat sepanjang judul EXCO BITUNG ONE */
     .title-line {
       display: block;
       width: 100%;
       height: 5px;
-      margin: 17px 0 12px;
-      background: var(--orange);
+      margin: 15px 0 12px;
       border-radius: 99px;
+      background: var(--orange);
     }
 
     .tagline {
       margin: 0;
-      font-size: clamp(13px, 3.1vw, 19px);
+      font-size: clamp(12px, 3.1vw, 19px);
       line-height: 1.5;
-      font-weight: 500;
-      letter-spacing: 0;
-      color: var(--text);
       white-space: nowrap;
     }
 
-    /* FORM LOGIN */
-    .login-form {
-      margin-top: 54px;
-    }
+    .login-form { margin-top: 48px; }
 
-    .form-group {
-      margin-bottom: 25px;
-    }
+    .form-group { margin-bottom: 25px; }
 
     .form-group label {
       display: block;
       margin-bottom: 10px;
       font-size: 16px;
       font-weight: 650;
-      color: var(--text);
     }
 
     .input-wrap {
@@ -133,13 +101,12 @@
       padding: 0 15px;
       border: 1.5px solid var(--border);
       border-radius: 11px;
-      background: #FFFFFF;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #fff;
     }
 
     .input-wrap:focus-within {
       border-color: var(--orange);
-      box-shadow: 0 0 0 3px rgba(245, 130, 32, 0.12);
+      box-shadow: 0 0 0 3px rgba(245,130,32,.12);
     }
 
     .input-icon {
@@ -162,16 +129,12 @@
       font-size: 16px;
     }
 
-    .input-wrap input::placeholder {
-      color: #929BA8;
-      opacity: 1;
-    }
+    .input-wrap input::placeholder { color: #929BA8; }
 
     .password-toggle {
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
       width: 36px;
       height: 40px;
       margin-left: 8px;
@@ -182,51 +145,32 @@
       cursor: pointer;
     }
 
-    .password-toggle svg {
-      width: 22px;
-      height: 22px;
-    }
+    .password-toggle svg { width: 22px; height: 22px; }
 
-    /* TOMBOL MASUK */
     .submit-button {
       display: block;
       width: 100%;
       min-height: 60px;
-      margin-top: 34px;
+      margin-top: 32px;
       border: 0;
       border-radius: 11px;
       background: var(--orange);
       color: #171717;
       font-size: 19px;
       font-weight: 800;
-      letter-spacing: 0.3px;
       cursor: pointer;
-      box-shadow: 0 5px 12px rgba(245, 130, 32, 0.15);
-      transition: background 0.2s, transform 0.15s;
     }
 
-    .submit-button:hover {
-      background: #F99A3C;
-    }
+    .submit-button:hover { background: #F99A3C; }
+    .submit-button:disabled { opacity: .7; cursor: wait; }
 
-    .submit-button:active {
-      transform: translateY(1px);
-    }
-
-    .submit-button:disabled {
-      cursor: wait;
-      opacity: 0.7;
-    }
-
-    /* TAUTAN DI BAWAH TOMBOL */
     .links {
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       flex-wrap: wrap;
       gap: 13px;
-      margin-top: 27px;
-      text-align: center;
+      margin-top: 26px;
     }
 
     .links a {
@@ -234,10 +178,6 @@
       font-size: 15px;
       font-weight: 600;
       text-decoration: none;
-    }
-
-    .links a:hover {
-      text-decoration: underline;
     }
 
     .link-divider {
@@ -258,11 +198,8 @@
       overflow-wrap: anywhere;
     }
 
-    .message.visible {
-      display: block;
-    }
+    .message.visible { display: block; }
 
-    /* AREA DASHBOARD SEMENTARA */
     .dashboard {
       display: none;
       width: 100%;
@@ -270,9 +207,7 @@
       margin: auto 0;
     }
 
-    .dashboard.visible {
-      display: block;
-    }
+    .dashboard.visible { display: block; }
 
     .dashboard-header {
       padding-bottom: 20px;
@@ -282,13 +217,6 @@
     .dashboard-header h2 {
       margin: 0 0 8px;
       font-size: 27px;
-      font-weight: 850;
-    }
-
-    .dashboard-header p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.6;
     }
 
     .dashboard-note {
@@ -299,142 +227,30 @@
       line-height: 1.7;
     }
 
-    .dashboard-note h3 {
-      margin-top: 0;
-    }
-
     .logout-button {
       margin-top: 18px;
       padding: 11px 20px;
       border: 1px solid var(--border);
       border-radius: 8px;
-      background: #FFFFFF;
-      color: var(--text);
-      font-weight: 650;
+      background: white;
       cursor: pointer;
     }
 
-    /* FOOTER */
     .footer {
       width: 100%;
-      margin-top: 42px;
+      margin-top: 35px;
       text-align: center;
       color: var(--muted);
     }
 
-    .footer-credit {
-      margin: 0;
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .footer-version {
-      margin: 3px 0 0;
-      color: #9AA3AF;
-      font-size: 11px;
-      line-height: 1.5;
-    }
-
-    @media (min-width: 700px) {
-      .page {
-        padding-top: 35px;
-        padding-bottom: 20px;
-      }
-
-      .login-container {
-        max-width: 540px;
-      }
-
-      .login-form {
-        margin-top: 54px;
-      }
-
-      .form-group {
-        margin-bottom: 27px;
-      }
-
-      .input-wrap {
-        min-height: 62px;
-      }
-
-      .input-wrap input {
-        height: 58px;
-      }
-
-      .submit-button {
-        min-height: 62px;
-      }
-    }
+    .footer-credit { margin: 0; font-size: 13px; }
+    .footer-version { margin: 5px 0 0; font-size: 11px; }
 
     @media (max-width: 380px) {
-      .page {
-        padding-right: 17px;
-        padding-left: 17px;
-      }
-
-      .brand-title h1 {
-        font-size: clamp(24px, 6.5vw, 27px);
-        letter-spacing: -1px;
-      }
-
-      .title-line {
-        height: 4px;
-        margin-top: 13px;
-        margin-bottom: 10px;
-      }
-
-      .tagline {
-        font-size: 12px;
-        letter-spacing: -0.2px;
-      }
-
-      .brand-logo {
-        margin-bottom: 23px;
-      }
-
-      .login-form {
-        margin-top: 40px;
-      }
-
-      .links {
-        gap: 10px;
-      }
-
-      .links a {
-        font-size: 13px;
-      }
-    }
-
-    @media (max-height: 760px) {
-      .page {
-        padding-top: 24px;
-      }
-
-      .brand-logo {
-        width: min(210px, 58%);
-        max-height: 110px;
-        margin-bottom: 20px;
-      }
-
-      .login-form {
-        margin-top: 34px;
-      }
-
-      .form-group {
-        margin-bottom: 19px;
-      }
-
-      .submit-button {
-        margin-top: 24px;
-      }
-
-      .links {
-        margin-top: 20px;
-      }
-
-      .footer {
-        margin-top: 28px;
-      }
+      .page { padding-right: 16px; padding-left: 16px; }
+      .brand-title h1 { font-size: 24px; letter-spacing: -1px; }
+      .tagline { font-size: 12px; }
+      .links a { font-size: 13px; }
     }
   </style>
 </head>
@@ -442,46 +258,33 @@
 <body>
   <main class="page">
 
-    <!-- HALAMAN LOGIN -->
     <section class="login-container" id="loginPage">
-
       <header class="brand">
         <img
           class="brand-logo"
           src="./Logo.png"
           alt="Logo Partai Buruh"
+          onerror="this.style.display='none'"
         >
 
         <div class="brand-title">
           <h1>EXCO BITUNG ONE</h1>
-          <span class="title-line" aria-hidden="true"></span>
+          <span class="title-line"></span>
         </div>
 
-        <p class="tagline">
-          Satu Sistem, Satu Data, Satu Kemenangan
-        </p>
+        <p class="tagline">Satu Sistem, Satu Data, Satu Kemenangan</p>
       </header>
 
-      <form class="login-form" id="loginForm" autocomplete="on">
-
+      <form class="login-form" id="loginForm">
         <div class="form-group">
           <label for="kta">Nomor KTA</label>
-
           <div class="input-wrap">
-            <svg class="input-icon"
-                 viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="1.8"
-                 stroke-linecap="round"
-                 stroke-linejoin="round"
-                 aria-hidden="true">
-              <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-              <circle cx="8" cy="10" r="2"></circle>
-              <path d="M5.5 15c.7-1.5 4.3-1.5 5 0"></path>
-              <path d="M14 9h4"></path>
-              <path d="M14 12h4"></path>
-              <path d="M14 15h3"></path>
+            <svg class="input-icon" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="5" width="18" height="14" rx="2"/>
+              <circle cx="8" cy="10" r="2"/>
+              <path d="M5.5 15c.7-1.5 4.3-1.5 5 0"/>
+              <path d="M14 9h4M14 12h4M14 15h3"/>
             </svg>
 
             <input
@@ -497,20 +300,13 @@
 
         <div class="form-group">
           <label for="password">Kata Sandi</label>
-
           <div class="input-wrap">
-            <svg class="input-icon"
-                 viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="1.8"
-                 stroke-linecap="round"
-                 stroke-linejoin="round"
-                 aria-hidden="true">
-              <rect x="4" y="10" width="16" height="11" rx="2"></rect>
-              <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
-              <circle cx="12" cy="15" r="1"></circle>
-              <path d="M12 16v2"></path>
+            <svg class="input-icon" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="4" y="10" width="16" height="11" rx="2"/>
+              <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+              <circle cx="12" cy="15" r="1"/>
+              <path d="M12 16v2"/>
             </svg>
 
             <input
@@ -527,18 +323,11 @@
               type="button"
               id="togglePassword"
               aria-label="Tampilkan kata sandi"
-              title="Tampilkan atau sembunyikan kata sandi"
             >
-              <svg id="eyeIcon"
-                   viewBox="0 0 24 24"
-                   fill="none"
-                   stroke="currentColor"
-                   stroke-width="1.8"
-                   stroke-linecap="round"
-                   stroke-linejoin="round"
-                   aria-hidden="true">
-                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
+              <svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.8">
+                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/>
+                <circle cx="12" cy="12" r="3"/>
               </svg>
             </button>
           </div>
@@ -550,7 +339,7 @@
 
         <div class="links">
           <a href="#" id="forgotLink">Lupa Sandi?</a>
-          <span class="link-divider" aria-hidden="true"></span>
+          <span class="link-divider"></span>
           <a href="#" id="registerLink">Daftar Anggota Baru</a>
         </div>
 
@@ -558,7 +347,6 @@
       </form>
     </section>
 
-    <!-- DASHBOARD DUMMY: DIKEMBANGKAN PADA TAHAP BERIKUTNYA -->
     <section class="dashboard" id="dashboardPage">
       <header class="dashboard-header">
         <h2>EXCO BITUNG ONE</h2>
@@ -567,13 +355,8 @@
 
       <div class="dashboard-note">
         <h3>Selamat Datang</h3>
-        <p id="welcomeText">
-          Anda berhasil masuk ke sistem.
-        </p>
-        <p>
-          Tampilan menu dan modul aplikasi akan dikembangkan
-          pada tahap berikutnya.
-        </p>
+        <p id="welcomeText"></p>
+        <p>Modul aplikasi akan dikembangkan pada tahap berikutnya.</p>
         <button class="logout-button" id="logoutButton" type="button">
           Keluar
         </button>
@@ -581,29 +364,20 @@
     </section>
 
     <footer class="footer">
-      <p class="footer-credit">
-        Design &amp; Develop by EXCO Partai Buruh Bitung
-      </p>
+      <p class="footer-credit">Design &amp; Develop by EXCO Partai Buruh Bitung</p>
       <p class="footer-version">Versi 1.0.0</p>
     </footer>
 
   </main>
 
   <script>
-    /*
-     * KONFIGURASI BACKEND
-     * Ganti URL di bawah dengan URL Web App Google Apps Script
-     * setelah backend login selesai dibuat dan diterapkan.
-     */
     const BACKEND_URL =
-      "https://script.google.com/macros/s/AKfycbxhi1V4LcIPexnfWrLtQ8VUY9-pjigLMzMb3aJ7R9idQdTzpgpg_d0Csc7GG0DfDh1c/exec";
+      "https://script.google.com/macros/s/AKfycbwzJAE4WyKP7aovKdRJu3Yovst5NFyywUJMHjBOgMOrrHbRdCaDBYeiewNMRJNbQEg6/exec";
 
     const loginForm = document.getElementById("loginForm");
     const loginButton = document.getElementById("loginButton");
     const message = document.getElementById("message");
     const passwordInput = document.getElementById("password");
-    const togglePassword = document.getElementById("togglePassword");
-    const eyeIcon = document.getElementById("eyeIcon");
 
     function showMessage(text) {
       message.textContent = text;
@@ -615,39 +389,20 @@
       message.classList.remove("visible");
     }
 
-    // Tampilkan atau sembunyikan kata sandi.
-    togglePassword.addEventListener("click", function () {
-      const showing = passwordInput.type === "text";
-
-      passwordInput.type = showing ? "password" : "text";
-
-      togglePassword.setAttribute(
-        "aria-label",
-        showing ? "Tampilkan kata sandi" : "Sembunyikan kata sandi"
-      );
-
-      eyeIcon.innerHTML = showing
-        ? '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle>'
-        : '<path d="M3 3l18 18"></path><path d="M10.6 5.1A10.8 10.8 0 0 1 12 5c6.4 0 10 7 10 7a16 16 0 0 1-3.1 3.8"></path><path d="M6.2 6.2C3.5 8 2 12 2 12s3.6 7 10 7c1.4 0 2.7-.3 3.8-.9"></path>';
+    document.getElementById("togglePassword").addEventListener("click", function () {
+      passwordInput.type =
+        passwordInput.type === "password" ? "text" : "password";
     });
 
-    // Login menggunakan Nomor KTA dan kata sandi.
     loginForm.addEventListener("submit", async function (event) {
       event.preventDefault();
       hideMessage();
 
-      const kta = document.getElementById("kta").value.trim();
+      const nomorKta = document.getElementById("kta").value.trim();
       const password = passwordInput.value;
 
-      if (!kta || !password) {
-        showMessage("Silakan isi Nomor KTA dan Kata Sandi.");
-        return;
-      }
-
-      if (BACKEND_URL.includes("GANTI_URL_GAS_DI_SINI")) {
-        showMessage(
-          "Tampilan login sudah siap. Login belum aktif karena URL backend Google Apps Script belum dipasang."
-        );
+      if (!nomorKta || !password) {
+        showMessage("Nomor KTA dan kata sandi wajib diisi.");
         return;
       }
 
@@ -655,6 +410,10 @@
       loginButton.textContent = "MEMERIKSA...";
 
       try {
+        /*
+         * Gunakan text/plain agar permintaan POST sederhana
+         * tidak memicu preflight CORS.
+         */
         const response = await fetch(BACKEND_URL, {
           method: "POST",
           headers: {
@@ -662,61 +421,87 @@
           },
           body: JSON.stringify({
             action: "login",
-            kta: kta,
+            nomorKta: nomorKta,
             password: password
-          })
+          }),
+          redirect: "follow"
         });
 
         if (!response.ok) {
-          throw new Error("Server tidak dapat memproses permintaan.");
+          throw new Error("Server mengembalikan status " + response.status);
         }
 
         const result = await response.json();
 
-        if (result.success && result.token) {
+        if (result.success && result.token && result.user) {
+          sessionStorage.setItem("exco_token", result.token);
+          sessionStorage.setItem(
+            "exco_user",
+            JSON.stringify(result.user)
+          );
+
           document.getElementById("loginPage").style.display = "none";
           document.getElementById("dashboardPage").classList.add("visible");
 
           document.getElementById("welcomeText").textContent =
-            "Selamat datang" +
-            (result.nama ? ", " + result.nama : "") +
-            ". Anda berhasil masuk ke sistem.";
-
-          // Simpan token hanya selama sesi tab ini.
-          sessionStorage.setItem("exco_token", result.token);
+            "Selamat datang, " +
+            (result.user.nama || "Pengguna") +
+            ". Role: " +
+            (result.user.role || "Pengguna") +
+            ". Login berhasil.";
         } else {
-          showMessage(result.message || "Nomor KTA atau kata sandi tidak sesuai.");
+          showMessage(
+            result.message || "Nomor KTA atau kata sandi tidak sesuai."
+          );
         }
+
       } catch (error) {
+        console.error("Login error:", error);
+
         showMessage(
-          "Login belum berhasil. Periksa koneksi dan konfigurasi backend."
+          "Koneksi login gagal dibaca browser. Periksa koneksi backend/CORS. " +
+          "Detail: " + (error.message || "Kesalahan jaringan")
         );
+
       } finally {
         loginButton.disabled = false;
         loginButton.textContent = "MASUK";
       }
     });
 
-    // Tautan sementara sampai fitur backend tersedia.
     document.getElementById("forgotLink").addEventListener("click", function (event) {
       event.preventDefault();
-      hideMessage();
-      showMessage(
-        "Fitur lupa kata sandi akan diaktifkan setelah modul pemulihan akun tersedia."
-      );
+      showMessage("Fitur lupa kata sandi belum tersedia.");
     });
 
     document.getElementById("registerLink").addEventListener("click", function (event) {
       event.preventDefault();
-      hideMessage();
-      showMessage(
-        "Pendaftaran anggota baru akan diaktifkan setelah formulir pendaftaran tersedia."
-      );
+      showMessage("Fitur pendaftaran anggota baru belum tersedia.");
     });
 
-    // Keluar dari dashboard dummy.
-    document.getElementById("logoutButton").addEventListener("click", function () {
+    document.getElementById("logoutButton").addEventListener("click", async function () {
+      const token = sessionStorage.getItem("exco_token");
+
+      if (token) {
+        try {
+          await fetch(BACKEND_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8"
+            },
+            body: JSON.stringify({
+              action: "logout",
+              token: token
+            }),
+            redirect: "follow"
+          });
+        } catch (error) {
+          console.warn("Logout backend tidak terkonfirmasi.", error);
+        }
+      }
+
       sessionStorage.removeItem("exco_token");
+      sessionStorage.removeItem("exco_user");
 
       document.getElementById("dashboardPage").classList.remove("visible");
       document.getElementById("loginPage").style.display = "";
